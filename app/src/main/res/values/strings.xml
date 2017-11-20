@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Cloudy</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--appProperties -->
+    <string name="appId">625546691b9f757f1da64b49d9740289</string>
+    <string name="unitType">metric</string>
+    <string name="dayCount">7</string>
+
+</resources>
