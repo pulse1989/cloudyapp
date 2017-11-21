@@ -19,5 +19,4 @@ public class AppModule {
     Context providesContext(Application application){
         return application;
     }
-
 }

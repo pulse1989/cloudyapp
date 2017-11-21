@@ -21,12 +21,13 @@ import za.co.kernelpanic.cloudy.utils.di.dagger.modules.WeatherActivityModule;
 public interface AppComponent {
 
 @Component.Builder
-    interface Builder {
+ interface Builder {
 
-    @BindsInstance
-    Builder application(Application application);
-        AppComponent build();
-    }
+            AppComponent build();
+
+            @BindsInstance
+            Builder application(Application application);
+   }
 
     //where this will be injected
     void inject(App target);

@@ -1,8 +1,6 @@
 package za.co.kernelpanic.cloudy.ui.fragments.Forecast;
 
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -21,8 +19,6 @@ import javax.inject.Inject;
 import dagger.android.support.AndroidSupportInjection;
 import za.co.kernelpanic.cloudy.R;
 import za.co.kernelpanic.cloudy.databinding.FragmentWeatherForecastBinding;
-import za.co.kernelpanic.cloudy.utils.App;
-import za.co.kernelpanic.cloudy.utils.LocationUtils;
 import za.co.kernelpanic.cloudy.utils.WeatherViewModelFactory;
 
 
@@ -31,14 +27,13 @@ public class WeatherFragment extends Fragment {
     private static final String LOG_TAG = WeatherFragment.class.getSimpleName();
     private FragmentWeatherForecastBinding binding;
 
-    @Inject
-    WeatherViewModelFactory viewModelFactory;
+
+    @Inject WeatherViewModelFactory viewModelFactory;
     @Inject WeatherForecastViewModel viewModel;
 
     public WeatherFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -60,8 +55,17 @@ public class WeatherFragment extends Fragment {
         // Inflate the layout for this fragment
 
        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_weather_forecast, container, false);
-       viewModel.getWeather().observe(this, weatherInfo -> {
+       viewModel.getLastLocation().observe(this, weatherInfo -> {
 
+           if(weatherInfo != null) {
+
+               viewModel.tryGettingWeatherInfo(weatherInfo.getLongitude(), weatherInfo.getLatitude());
+
+               Log.w(LOG_TAG, "Longitude: " + weatherInfo.getLongitude() + " Latitude: " + weatherInfo.getLatitude());
+           } else {
+
+               Log.w(LOG_TAG, "failed to get location");
+           }
 
        });
        return binding.getRoot();

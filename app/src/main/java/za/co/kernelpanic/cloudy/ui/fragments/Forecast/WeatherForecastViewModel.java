@@ -28,20 +28,23 @@ public class WeatherForecastViewModel extends ViewModel {
     private static final String LOG_TAG = WeatherForecastViewModel.class.getSimpleName();
     private CloudyRepository cloudyRepository;
     private LiveData<ForecastResponse> forecastLiveData;
-    private CompositeDisposable compositeDisposable;
 
 
     @Inject //provided by dagger via the map
-    public WeatherForecastViewModel(CloudyRepository repository, CompositeDisposable compositeDisposable) {
+    public WeatherForecastViewModel(CloudyRepository repository) {
         this.cloudyRepository = repository;
-        this.compositeDisposable = compositeDisposable;
-
     }
 
     public LiveData<Location> getLastLocation(){
 
         return cloudyRepository.userLocation();
     }
+
+    public void tryGettingWeatherInfo (double longitude, double latitude){
+
+        cloudyRepository.initializeDate(longitude, latitude);
+    }
+
 
 
 

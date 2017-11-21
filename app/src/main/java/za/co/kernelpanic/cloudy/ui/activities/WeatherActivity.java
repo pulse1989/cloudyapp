@@ -55,7 +55,7 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
 
         WeatherFragment weatherFragment = new WeatherFragment();
         FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction().add(R.id.mainActicitylayout, weatherFragment, "weather");
+        FragmentTransaction transaction = manager.beginTransaction().add(R.id.mainLayout, weatherFragment, "weather");
         transaction.commit();
     }
 
