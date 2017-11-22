@@ -1,12 +1,8 @@
 package za.co.kernelpanic.cloudy.repository.remote;
 
-import android.arch.lifecycle.LiveData;
-
-import io.reactivex.Flowable;
-import io.reactivex.Single;
+import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import za.co.kernelpanic.cloudy.data.Forecast;
 import za.co.kernelpanic.cloudy.data.ForecastResponse;
 
 /**
@@ -18,7 +14,7 @@ public interface WeatherApi {
 
     // get the 7 day forecast
     @GET("daily")
-    Flowable<ForecastResponse> getForecast(
+    Call<ForecastResponse> getForecast(
             @Query("APPID") String appId,
             @Query("lat") double latitude,
             @Query("lon") double longitude,

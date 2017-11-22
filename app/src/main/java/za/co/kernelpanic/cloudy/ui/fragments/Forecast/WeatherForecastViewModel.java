@@ -2,6 +2,7 @@ package za.co.kernelpanic.cloudy.ui.fragments.Forecast;
 
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 import android.location.Location;
 
@@ -14,6 +15,8 @@ import za.co.kernelpanic.cloudy.repository.main.CloudyRepository;
 
 /**
  * Our ViewModel for calling the weather api service for getting our 7 day forecast for the user
+ *
+ * We're only getting the current day for now
  */
 @Singleton
 public class WeatherForecastViewModel extends ViewModel {
@@ -33,28 +36,12 @@ public class WeatherForecastViewModel extends ViewModel {
         return cloudyRepository.getUserLocation();
     }
 
-    public void tryGettingWeatherInfo (double longitude, double latitude){
+    public LiveData<ForecastResponse> getWeather() {
 
-        cloudyRepository.initializeData(longitude, latitude);
+        forecastLiveData = Transformations.switchMap(getLastLocation(), location -> cloudyRepository.getForecast(location.getLatitude(), location.getLongitude()));
+
+        return forecastLiveData;
     }
 
-    public void getWeatherInfoReal(){
-
-        cloudyRepository.getForecast();
-    }
-
-
-//    public LiveData<ForecastResponse>  getWeather() {
-//
-//         forecastLiveData = Transformations.switchMap(cloudyRepository.userLocation(), location -> {
-//
-//             double latitude = location.getLatitude();
-//             double longitude = location.getLongitude();
-//
-//             return cloudyRepository.getWeatherForecast(latitude, longitude);
-//         });
-//
-//         return forecastLiveData;
-//    }
 
 }

@@ -136,6 +136,7 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
                     Log.d(LOG_TAG, "We have permissions! proceeding...");
                     buildLocationSettingsRequest();
                     checkDeviceSettings();
+                    break;
 
                 } else {
 

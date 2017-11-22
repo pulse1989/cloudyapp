@@ -3,10 +3,11 @@ package za.co.kernelpanic.cloudy.repository.main;
 import android.arch.lifecycle.LiveData;
 import android.location.Location;
 
+import za.co.kernelpanic.cloudy.data.ForecastResponse;
+
 public interface CloudyRepoInterface {
 
 
-    void initializeData(double Longitude, double Latitude);
     LiveData<Location> getUserLocation();
-    void getForecast();
+    LiveData<ForecastResponse> getForecast(double latitude, double longitude);
 }

@@ -2,13 +2,15 @@ package za.co.kernelpanic.cloudy.repository.remote;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import za.co.kernelpanic.cloudy.data.ForecastResponse;
 
 
@@ -40,43 +42,31 @@ public class WeatherNetworkDataSource implements  WeatherNetworkInterface {
     }
 
 
+    //TODO - deal with retrofit errors
     @Override
-    public void sendRequest(double longitude, double latitude) {
+    public LiveData<ForecastResponse> fetchWeatherForecast(double latitude, double longitude) {
 
-        compositeDisposable.add(weatherApi.getForecast(API_KEY, latitude, longitude, REQUEST_MODE, REQUEST_UNITS, REQUEST_FORECAST_DAYS)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribeOn(Schedulers.io())
-        .subscribe(this::handleResponse, this::onError));
-    }
+        Call<ForecastResponse> apiResponse = weatherApi.getForecast(API_KEY, latitude, longitude, REQUEST_MODE, REQUEST_UNITS, REQUEST_FORECAST_DAYS);
+        apiResponse.enqueue(new Callback<ForecastResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<ForecastResponse> call, @NonNull Response<ForecastResponse> response) {
 
+                if(response.isSuccessful()) {
 
-    @Override
-    public String onError(Throwable throwable) {
+                    Log.i(LOG_TAG, "We managed to get data!");
+                    responseLiveData.setValue(response.body());
+                }
 
-        String error = "Unable to get weather Info";
+            }
 
-        Log.e(LOG_TAG, "Unable to get data: " + throwable.getMessage());
+            @Override
+            public void onFailure(@NonNull Call<ForecastResponse> call, @NonNull Throwable t) {
 
-        return error;
-    }
+                Log.e(LOG_TAG, "Something went horribly wrong: \n" + t.getMessage());
 
-    @Override
-    public void handleResponse(ForecastResponse forecastResponse) {
+            }
+        });
 
-       Log.w(LOG_TAG, "setting the livedata with stuff: " + forecastResponse.getCity().getName());
-       Log.w(LOG_TAG, "getting daily temp: " + forecastResponse.getForecastList().get(0).getPressure());
-       responseLiveData.setValue(forecastResponse);
-    }
-
-
-    @Override
-    public LiveData<ForecastResponse> provideWeatherForecast() {
-
-        Log.w(LOG_TAG, "live data method: " + responseLiveData);
         return responseLiveData;
-
     }
-
-
-
 }

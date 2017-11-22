@@ -124,7 +124,6 @@ public class LocationUtils {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
         locationInfoLogger("Fused location client initialized successfully");
-
         createLocationRequest();
         return locationStream;
     }

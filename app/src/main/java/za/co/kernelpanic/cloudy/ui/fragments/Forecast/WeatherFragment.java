@@ -53,21 +53,19 @@ public class WeatherFragment extends Fragment {
         // Inflate the layout for this fragment
 
        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_weather_forecast, container, false);
-       viewModel.getLastLocation().observe(this, weatherInfo -> {
+       viewModel.getWeather().observe(this, weatherInfo -> {
 
            if(weatherInfo != null) {
 
-               viewModel.tryGettingWeatherInfo(weatherInfo.getLongitude(), weatherInfo.getLatitude());
-
-               Log.w(LOG_TAG, "Longitude: " + weatherInfo.getLongitude() + " Latitude: " + weatherInfo.getLatitude());
-               viewModel.getWeatherInfoReal();
-
+               Log.i(LOG_TAG, "Requesting weather for city name: " + weatherInfo.getCity().getName());
            } else {
 
-               Log.w(LOG_TAG, "failed to get location");
+               Log.e(LOG_TAG, "Unable to get weather");
            }
 
+
        });
+
        return binding.getRoot();
     }
 

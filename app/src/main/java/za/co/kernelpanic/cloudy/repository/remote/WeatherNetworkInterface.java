@@ -8,9 +8,5 @@ import za.co.kernelpanic.cloudy.data.ForecastResponse;
 
 public interface WeatherNetworkInterface {
 
-     String onError(Throwable throwable);
-     LiveData<ForecastResponse> provideWeatherForecast();
-     void handleResponse(ForecastResponse forecastResponse);
-     void sendRequest(double longitude, double latitude);
-
+     LiveData<ForecastResponse> fetchWeatherForecast(double latitude, double longitude);
 }
