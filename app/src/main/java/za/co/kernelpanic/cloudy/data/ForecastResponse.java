@@ -9,7 +9,15 @@ public class ForecastResponse {
 
     @SerializedName("list")
     private List<Forecast> forecastList;
-    @SerializedName("name")
-    private String cityName;
+    private City city;
+
+
+    public City getCity() {
+        return city;
+    }
+
+    public List<Forecast> getForecastList() {
+        return forecastList;
+    }
 
 }

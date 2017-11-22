@@ -10,8 +10,8 @@ import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import za.co.kernelpanic.cloudy.utils.di.dagger.components.DaggerAppComponent;
 
-
 public class App extends Application implements HasActivityInjector {
+
 
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;

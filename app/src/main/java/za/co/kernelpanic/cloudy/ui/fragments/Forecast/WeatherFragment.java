@@ -5,14 +5,12 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 
 import javax.inject.Inject;
 
@@ -62,6 +60,8 @@ public class WeatherFragment extends Fragment {
                viewModel.tryGettingWeatherInfo(weatherInfo.getLongitude(), weatherInfo.getLatitude());
 
                Log.w(LOG_TAG, "Longitude: " + weatherInfo.getLongitude() + " Latitude: " + weatherInfo.getLatitude());
+               viewModel.getWeatherInfoReal();
+
            } else {
 
                Log.w(LOG_TAG, "failed to get location");

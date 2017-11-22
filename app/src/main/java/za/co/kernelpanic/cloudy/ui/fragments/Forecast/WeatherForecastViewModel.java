@@ -1,22 +1,15 @@
 package za.co.kernelpanic.cloudy.ui.fragments.Forecast;
 
 
-import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 import android.location.Location;
-import android.util.Log;
-
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import io.reactivex.disposables.CompositeDisposable;
 import za.co.kernelpanic.cloudy.data.ForecastResponse;
-import za.co.kernelpanic.cloudy.repository.CloudyRepository;
-import za.co.kernelpanic.cloudy.utils.LocationUtils;
+import za.co.kernelpanic.cloudy.repository.main.CloudyRepository;
 
 
 /**
@@ -37,15 +30,18 @@ public class WeatherForecastViewModel extends ViewModel {
 
     public LiveData<Location> getLastLocation(){
 
-        return cloudyRepository.userLocation();
+        return cloudyRepository.getUserLocation();
     }
 
     public void tryGettingWeatherInfo (double longitude, double latitude){
 
-        cloudyRepository.initializeDate(longitude, latitude);
+        cloudyRepository.initializeData(longitude, latitude);
     }
 
+    public void getWeatherInfoReal(){
 
+        cloudyRepository.getForecast();
+    }
 
 
 //    public LiveData<ForecastResponse>  getWeather() {
