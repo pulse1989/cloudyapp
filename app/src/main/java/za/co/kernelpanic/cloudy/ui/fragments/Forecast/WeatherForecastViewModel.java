@@ -1,6 +1,8 @@
 package za.co.kernelpanic.cloudy.ui.fragments.Forecast;
 
 
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
@@ -24,7 +26,6 @@ public class WeatherForecastViewModel extends ViewModel {
     private static final String LOG_TAG = WeatherForecastViewModel.class.getSimpleName();
     private CloudyRepository cloudyRepository;
     private LiveData<ForecastResponse> forecastData;
-
 
     @Inject //provided by dagger via the map
     public WeatherForecastViewModel(CloudyRepository repository) {
@@ -56,5 +57,12 @@ public class WeatherForecastViewModel extends ViewModel {
 
         return forecastData;
     }
+
+    public void removeLocationUpdates() {
+
+        cloudyRepository.shutdownLocationUpdates();
+    }
+
+
 
 }

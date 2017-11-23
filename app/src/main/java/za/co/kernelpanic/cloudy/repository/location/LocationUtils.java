@@ -136,4 +136,10 @@ public class LocationUtils {
         Log.w(LOG_TAG,  logMessage);
     }
 
+    public void stopLocationUpdates(){
+
+        fusedLocationClient.removeLocationUpdates(locationCallback);
+        locationInfoLogger("Fused location client stopped successfully");
+    }
+
 }

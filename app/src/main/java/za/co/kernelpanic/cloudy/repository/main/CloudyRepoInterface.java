@@ -13,4 +13,5 @@ public interface CloudyRepoInterface {
 
     LiveData<Location> getUserLocation();
     LiveData<ForecastResponse> getForecast(double latitude, double longitude);
+    void shutdownLocationUpdates();
 }

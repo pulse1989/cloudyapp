@@ -55,8 +55,11 @@ public class CloudyRepository implements CloudyRepoInterface {
 
     }
 
+    @Override
+    public void shutdownLocationUpdates() {
 
-
+        locationUtils.stopLocationUpdates();
+    }
 
 
 }

@@ -269,5 +269,10 @@ public class WeatherFragment extends Fragment {
 
     }
 
+    @Override
+    public void onPause() {
 
+        viewModel.removeLocationUpdates();
+        super.onPause();
+    }
 }
