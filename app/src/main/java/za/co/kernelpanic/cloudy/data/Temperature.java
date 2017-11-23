@@ -2,9 +2,6 @@ package za.co.kernelpanic.cloudy.data;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by vmoyo on 2017/11/22.
- */
 
 public class Temperature {
 

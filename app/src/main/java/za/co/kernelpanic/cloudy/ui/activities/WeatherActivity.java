@@ -39,18 +39,25 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
     @Inject
     DispatchingAndroidInjector<Fragment> androidInjector; //we need to inject our android fragment instances into the activity
     private static final String LOG_TAG = WeatherActivity.class.getSimpleName();
+    @Inject LocationRequest locationRequest;
+
     private static final int CHECK_PLAY_SERVICES = 9000;
     private static final int FINE_LOCATION_REQUEST_CODE = 8;
     private static final int CHECK_DEVICE_SETTINGS = 8000;
     private SettingsClient settingsClient;
     private LocationSettingsRequest locationSettingsRequest;
-    @Inject LocationRequest locationRequest;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+         /*
+          * we need this here before calling onCreate otherwise our fragment attachments can end up failing
+          * as there is a possibility the fragment can get attached while the activity calles super().
+          * Before that happens, our activity has to be injected! otherwise any fragments that rely on this activity can crash
+          */
         AndroidInjection.inject(this);
+
+        //We then continue as normal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -58,6 +65,7 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
         //we need to ask for permissions on google play services, GPS
         checkPlayServices();
 
+        //Only if we haven't got anything in onSaveInstanceState
         if(savedInstanceState == null) {
 
             loadFragment();
@@ -141,7 +149,6 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
                 } else {
 
                     Log.w(LOG_TAG, "We've been denied permissions, Therefor we cannot give accurate weather information");
-                    displayWarningDialog(); //do this before killing the app
                     finish(); // we close the app because we can no longer function.
                 }
             }
@@ -174,6 +181,7 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
                 .addOnFailureListener(this, e -> {
 
                     int statusCode = ((ApiException)e).getStatusCode();
+
                     switch (statusCode) {
 
                         case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
@@ -196,6 +204,7 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
                             String errorMessage = "Unable to solve settings via this App. Please resolve in location settings";
                             Log.w(LOG_TAG, errorMessage);
                             Toast.makeText(WeatherActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+
                             break;
 
                     }
@@ -233,10 +242,4 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
         }
 
     }
-
-    private void displayWarningDialog() {
-        //TODO - Complete this dialog box warning the user we need both permissions to continue
-    }
-
-
 }

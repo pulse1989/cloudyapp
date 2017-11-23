@@ -10,6 +10,10 @@ import za.co.kernelpanic.cloudy.data.ForecastResponse;
 import za.co.kernelpanic.cloudy.repository.location.LocationUtils;
 import za.co.kernelpanic.cloudy.repository.remote.WeatherNetworkDataSource;
 
+/*
+ *  Single source of truth for our application. We handle getting the user location, getting the information from the API.
+ *  We can also insert values in tht the database from here once we have the forecast data. (skipping this step for now)
+ */
 @Singleton
 public class CloudyRepository implements CloudyRepoInterface {
 

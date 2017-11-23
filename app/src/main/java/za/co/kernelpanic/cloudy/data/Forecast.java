@@ -16,6 +16,10 @@ public class Forecast {
     private double pressure;
     @SerializedName("humidity")
     private double humidity;
+    @SerializedName("speed")
+    private double windSpeed;
+    @SerializedName("deg")
+    private double windDirection;
 
     public double getPressure() {
         return pressure;
@@ -31,6 +35,14 @@ public class Forecast {
 
     public List<Weather> getWeather() {
         return weather;
+    }
+
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public double getWindDirection() {
+        return windDirection;
     }
 
 

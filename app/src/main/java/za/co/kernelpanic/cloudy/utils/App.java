@@ -12,6 +12,11 @@ import za.co.kernelpanic.cloudy.utils.di.dagger.components.DaggerAppComponent;
 
 public class App extends Application implements HasActivityInjector {
 
+    /*
+     * Our main activity class - this class is responsible for creating the required modules for use by our app.
+     * This also where the android activity injector is defined before the activity is injected by dagger.
+     */
+
 
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;

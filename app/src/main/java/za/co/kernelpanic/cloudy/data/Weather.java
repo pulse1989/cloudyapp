@@ -6,7 +6,7 @@ public class Weather {
 
     private String main;
     private String description;
-    private String icon;
+    private int iconId;
 
     public String getMain() {
         return main;
@@ -16,8 +16,8 @@ public class Weather {
         return description;
     }
 
-    public String getIcon() {
-        return icon;
+    public int getIconId() {
+        return iconId;
     }
 
 

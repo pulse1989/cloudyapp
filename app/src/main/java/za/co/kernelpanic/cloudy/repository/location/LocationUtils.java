@@ -59,7 +59,7 @@ public class LocationUtils {
     /*
      * Location update speed.
      * The update interval - refers to the regular interval the device will ask for updates. Default is 5 minutes while the app is open
-     * the fastest interval - refers to the max speed at which updates will be queried. we will not go beyond this threshold set
+     * the fastest interval - refers to the max speed at which updates will be queried - 2.5 minutes. we will not go beyond this threshold set
      */
     private static final long LOCATION_UPDATE_INTERVAL_MILLIS = 300000;
     private static final long FASTEST_LOCATION_UPDATE_INTERVAL_IN_MILLIS = LOCATION_UPDATE_INTERVAL_MILLIS / 2;
@@ -90,6 +90,7 @@ public class LocationUtils {
         locationRequest.setFastestInterval(FASTEST_LOCATION_UPDATE_INTERVAL_IN_MILLIS);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
+        locationInfoLogger("Initiated location request");
 
     }
 

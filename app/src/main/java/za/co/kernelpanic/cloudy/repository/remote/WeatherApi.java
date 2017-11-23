@@ -12,7 +12,13 @@ import za.co.kernelpanic.cloudy.data.ForecastResponse;
 
 public interface WeatherApi {
 
-    // get the 7 day forecast
+    /*
+     * This is the actual api call performed by retrofit.
+     * We pass in all the queries we want, including user location in
+     * latitude and longitude. Because we're biased, we'll only be grabbing metric units.
+     * This can easily be changed though, which is why it's a query rather than a hard-coded value.
+     * Same as the rest
+     */
     @GET("daily")
     Call<ForecastResponse> getForecast(
             @Query("APPID") String appId,

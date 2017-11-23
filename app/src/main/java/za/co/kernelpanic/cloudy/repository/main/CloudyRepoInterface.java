@@ -7,6 +7,9 @@ import za.co.kernelpanic.cloudy.data.ForecastResponse;
 
 public interface CloudyRepoInterface {
 
+    /*
+     * Repository interface for our Concrete implementation of this class
+     */
 
     LiveData<Location> getUserLocation();
     LiveData<ForecastResponse> getForecast(double latitude, double longitude);

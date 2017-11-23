@@ -7,25 +7,28 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
-import io.reactivex.disposables.CompositeDisposable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import za.co.kernelpanic.cloudy.data.ForecastResponse;
 
 
+/*
+ * This class is responsible for going online to fetch our weather data and then returning the result to the LiveData ViewModel via the repository.
+ * As with the gps location information, weather information is updated every 5 minutes once a new location has been sent to this class.
+ * If the ViewModel's getWeather livedata doesn't have any subscribers, this class will effectively do nothing until it is needed.
+ */
 public class WeatherNetworkDataSource implements  WeatherNetworkInterface {
 
     private static final String LOG_TAG = WeatherNetworkDataSource.class.getSimpleName();
 
     private final WeatherApi weatherApi;
-    private final CompositeDisposable compositeDisposable;
 
     private static final String API_KEY = "625546691b9f757f1da64b49d9740289";
     private static final String REQUEST_MODE = "json";
     private static final String REQUEST_UNITS = "metric";
     private static final int REQUEST_FORECAST_DAYS = 1;
-    private MutableLiveData<ForecastResponse> responseLiveData;
+    private MutableLiveData<ForecastResponse> weatherDataStream;
 
     /*
      * This is called from the repository class.
@@ -33,16 +36,17 @@ public class WeatherNetworkDataSource implements  WeatherNetworkInterface {
      */
 
     @Inject
-    public WeatherNetworkDataSource(WeatherApi weatherApi, CompositeDisposable compositeDisposable){
+    public WeatherNetworkDataSource(WeatherApi weatherApi){
 
         this.weatherApi = weatherApi;
-        this.compositeDisposable = compositeDisposable;
-        this.responseLiveData = new MutableLiveData<>();
+        this.weatherDataStream = new MutableLiveData<>();
 
     }
 
+    /*
+     * Responsible for getting data directly from the API and returning the LiveData  to the repository
+     */
 
-    //TODO - deal with retrofit errors
     @Override
     public LiveData<ForecastResponse> fetchWeatherForecast(double latitude, double longitude) {
 
@@ -54,9 +58,8 @@ public class WeatherNetworkDataSource implements  WeatherNetworkInterface {
                 if(response.isSuccessful()) {
 
                     Log.i(LOG_TAG, "We managed to get data!");
-                    responseLiveData.setValue(response.body());
+                    weatherDataStream.setValue(response.body());
                 }
-
             }
 
             @Override
@@ -67,6 +70,6 @@ public class WeatherNetworkDataSource implements  WeatherNetworkInterface {
             }
         });
 
-        return responseLiveData;
+        return weatherDataStream;
     }
 }
