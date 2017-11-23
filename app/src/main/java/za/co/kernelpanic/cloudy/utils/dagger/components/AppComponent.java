@@ -1,4 +1,4 @@
-package za.co.kernelpanic.cloudy.utils.di.dagger.components;
+package za.co.kernelpanic.cloudy.utils.dagger.components;
 
 
 import android.app.Application;
@@ -9,10 +9,10 @@ import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 import za.co.kernelpanic.cloudy.utils.App;
-import za.co.kernelpanic.cloudy.utils.di.dagger.modules.AppModule;
-import za.co.kernelpanic.cloudy.utils.di.dagger.modules.NetworkModule;
-import za.co.kernelpanic.cloudy.utils.di.dagger.modules.ViewModelModule;
-import za.co.kernelpanic.cloudy.utils.di.dagger.modules.WeatherActivityModule;
+import za.co.kernelpanic.cloudy.utils.dagger.modules.AppModule;
+import za.co.kernelpanic.cloudy.utils.dagger.modules.NetworkModule;
+import za.co.kernelpanic.cloudy.utils.dagger.modules.ViewModelModule;
+import za.co.kernelpanic.cloudy.utils.dagger.modules.WeatherActivityModule;
 
 /**
  * Our app component is responsible for building out our object graph so that dagger is aware of each and every object instance to provide when needed.
@@ -26,7 +26,11 @@ public interface AppComponent {
 
     Application myapp();
 
-@Component.Builder
+    /*
+     * We need to bind our application scope instance to the dagger graph. this will help with application context anywhere in the app.
+     * So we declare a builder  and bind the instance.
+     */
+    @Component.Builder
  interface Builder {
 
             @BindsInstance

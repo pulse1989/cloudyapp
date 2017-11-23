@@ -23,6 +23,7 @@ public class WeatherForecastViewModel extends ViewModel {
 
     private static final String LOG_TAG = WeatherForecastViewModel.class.getSimpleName();
     private CloudyRepository cloudyRepository;
+    private LiveData<ForecastResponse> forecastData;
 
 
     @Inject //provided by dagger via the map
@@ -34,7 +35,7 @@ public class WeatherForecastViewModel extends ViewModel {
      * This Livedata is responsible for getting a user's location using the locationUtil's class.
      * It's called by our weatherMethod because essentially, this is a dependency...
      */
-    public LiveData<Location> getLastLocation(){
+    private LiveData<Location> getLastLocation(){
 
         return cloudyRepository.getUserLocation();
     }
@@ -51,8 +52,9 @@ public class WeatherForecastViewModel extends ViewModel {
      */
     public LiveData<ForecastResponse> getWeather() {
 
-        return Transformations.switchMap(getLastLocation(), location -> cloudyRepository.getForecast(location.getLatitude(), location.getLongitude()));
-    }
+        forecastData = Transformations.switchMap(getLastLocation(), location -> cloudyRepository.getForecast(location.getLatitude(), location.getLongitude()));
 
+        return forecastData;
+    }
 
 }

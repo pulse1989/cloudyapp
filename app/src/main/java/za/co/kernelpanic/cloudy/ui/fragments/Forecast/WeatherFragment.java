@@ -8,9 +8,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -32,6 +36,7 @@ public class WeatherFragment extends Fragment {
 
     //data binding
     private FragmentWeatherForecastBinding binding;
+
 
     //we need to check for network connectivity before trying to get data
     private boolean isConnected;
@@ -71,18 +76,18 @@ public class WeatherFragment extends Fragment {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherForecastViewModel.class);
 
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment using databinding
-       binding = DataBindingUtil.inflate(inflater, R.layout.fragment_weather_forecast, container, false);
-       pendingProgress = binding.appProgressIndicator;
-
-       checkConnectivity();
-       return binding.getRoot();
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_weather_forecast, container, false);
+        pendingProgress = binding.appProgressIndicator;
+        setHasOptionsMenu(true);
+        checkConnectivity();
+        return binding.getRoot();
     }
+
 
     /*
      * Let's make sure the user has a working internet connection before we attempt to get the weather data.
@@ -90,7 +95,6 @@ public class WeatherFragment extends Fragment {
      * their settings.
      */
     private void checkConnectivity() {
-
 
         ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -108,16 +112,22 @@ public class WeatherFragment extends Fragment {
 
         if(isConnected) {
 
-            getData();
             showLoading();
 
         } else {
 
-            Toast.makeText(getContext(), "Unable to connect to service. Please check your connection and try again", Toast.LENGTH_LONG).show();
-        }
+            showSnackBar("Unable to connect to service. Please check your connection and try again");
 
+            /*
+             * Because it's a sad moment...
+             */
+            binding.imgCurrentWeather.setImageResource(R.drawable.weather_loading_fail);
+        }
     }
 
+    /*
+     * Show a loading screen while we retrieve data.
+     */
     private void showLoading() {
 
         pendingProgress.setVisibility(View.VISIBLE);
@@ -136,13 +146,12 @@ public class WeatherFragment extends Fragment {
             if(weatherInfo != null && weatherInfo.getForecastList().size() > 0) {
 
                 Log.i(LOG_TAG, "got info!");
-
                 hideLoading();
                 updateUI(weatherInfo);
 
             } else {
 
-                Toast.makeText(getContext(), "Unable to get Weather Information. Try again later", Toast.LENGTH_LONG).show();
+               showSnackBar("Unable to get Weather Information. Try again later");
 
                 Log.w(LOG_TAG, "Unable to get weather!");
             }
@@ -207,10 +216,56 @@ public class WeatherFragment extends Fragment {
         binding.tvLocationHeader.setText(weatherLocation);
         binding.tvWeatherDescription.setText(weatherDescription);
         binding.tvWeatherTemp.setText(currentTemp);
+        binding.tvMinTempDetail.setText(minTemp);
+        binding.maxTempDetail.setText(maxTemp);
         binding.tvHumidityDetail.setText(humidityString);
         binding.tvAirPressureDetail.setText(pressureString);
         binding.tvWindSpeedDetail.setText(windSpeedString);
         binding.imgCurrentWeather.setImageResource(weatherImageId);
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+    }
+
+    /*
+     * Whenever the refresh icon is tapped, this method is triggered.
+     * As always, we check for network connectivity.
+     */
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.action_refresh:
+                showSnackBar("Refreshing...");
+                checkConnectivity();
+
+                Log.i(LOG_TAG, "Refreshing weather info");
+
+            default:
+                return super.onOptionsItemSelected(item); //superclass will handle default options
+        }
+    }
+
+    /*
+     * Default message method for showing information to the user.
+     */
+    private void showSnackBar(String message){
+
+        if(getView() != null){
+
+            Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+
+        } else {
+
+
+            Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+        }
 
     }
 

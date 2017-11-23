@@ -1,4 +1,4 @@
-package za.co.kernelpanic.cloudy.utils.di.dagger.modules;
+package za.co.kernelpanic.cloudy.utils.dagger.modules;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;

@@ -1,6 +1,25 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Cloudy</string>
 
+
+    <!-- Location permission request  + denied rationale -->
+    <string name="location_rationale">In order to provide you with the proper weather data, we need permission to access your location. Pretty please?</string>
+    <string name="permission_denied_explanation">Unfortunately, without the permission, the app doesn\'t function. Please try granting permissions again to continue</string>
+    <string name="ok">OK</string>
+
+    <!-- Fragment specific properties for our default UI Indicators -->
+    <string name="humidity_indicator">----</string>
+    <string name="pressure_indicator">----</string>
+    <string name="wind_indicator">----</string>
+    <string name="weather_information_header">-----</string>
+    <string name="location_header">Acquiring Location…</string>
+    <string name="wind_speed_header">Wind Speed</string>
+    <string name="humidity_header">Humidity</string>
+    <string name="air_pressure_header">Air Pressure</string>
+    <string name="current_weatherforecast_image">current_weatherForecast_image</string>
+    <string name="air_pressure_indicator">-----</string>
+    <string name="network_change_receiver_broadcast">NetworkChangeReceiver</string>
+
     <!-- - - - - - - - - - - - - - - - -
       - Used by CloudyWeatherUtils
       - - - - - - - - - - - - - - - - -->
@@ -92,16 +111,13 @@
     <string name="condition_960">Storm</string>
     <string name="condition_961">Violent Storm</string>
     <string name="condition_962">Hurricane</string>
-
     <string name="condition_unknown">Unknown (<xliff:g id="conditionId">%1$d</xliff:g>)</string>
-    <string name="humidity_indicator">----</string>
-    <string name="pressure_indicator">----</string>
-    <string name="wind_indicator">----</string>
-    <string name="weather_information_header">-----</string>
-    <string name="location_header">-----</string>
-    <string name="wind_speed_header">Wind Speed</string>
-    <string name="humidity_header">Humidity</string>
-    <string name="air_pressure_header">Air Pressure</string>
-    <string name="current_weatherforecast_image">current_weatherForecast_image</string>
-    <string name="air_pressure_indicator">-----</string>
+    <string name="refresh">Refresh</string>
+    <string name="min_temp">Min Temp</string>
+    <string name="max_temp">Max Temp</string>
+    <string name="txt_min_temp_indicator">-----</string>
+    <string name="txt_max_temp_indicator">-----</string>
+    <string name="humidity_content_description">humidityIndicator</string>
+
+
 </resources>

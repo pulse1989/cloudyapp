@@ -1,5 +1,6 @@
 package za.co.kernelpanic.cloudy.data;
 
+
 import com.google.gson.annotations.SerializedName;
 
 

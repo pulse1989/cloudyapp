@@ -7,6 +7,8 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -46,6 +48,7 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
     private static final int CHECK_DEVICE_SETTINGS = 8000;
     private SettingsClient settingsClient;
     private LocationSettingsRequest locationSettingsRequest;
+    private CoordinatorLayout weatherActivityLayout;
 
 
     @Override
@@ -60,13 +63,15 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
         //We then continue as normal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        weatherActivityLayout = findViewById(R.id.mainLayout);
         settingsClient = LocationServices.getSettingsClient(this);
         //we need to ask for permissions on google play services, GPS
-        checkPlayServices();
 
-        //Only if we haven't got anything in onSaveInstanceState
-        if(savedInstanceState == null) {
+        /*
+         * Only if we haven't got anything in onSaveInstanceState and we've confirmed checkplay services is here.
+         * we can go ahead and attach the fragment
+         */
+        if(savedInstanceState == null && checkPlayServices() ) {
 
             loadFragment();
         }
@@ -108,25 +113,58 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
         } else {
 
             Log.d(LOG_TAG, "We have play services installed. continuing...");
-            checkPermissions();
+
             return true;
         }
 
+    }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(!checkPermissions()) {
+
+            requestPermissions();
+        }
     }
 
     /*
-     * if this is the first time we're launching, let's ask the user for Location permissions before implementing this api. We need to do that here
-     * before we can subscribe to location updates. We'll include a decent rationale as well to let them know this is so we get the correct weather
-     * from their location
-     */
-    private void checkPermissions() {
+         * if this is the first time we're launching, let's ask the user for Location permissions before implementing this api. We need to do that here
+         * before we can subscribe to location updates. We'll include a decent rationale as well to let them know this is so we get the correct weather
+         * from their location
+         */
+    private boolean checkPermissions() {
 
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        int permissionState = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
 
-            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, FINE_LOCATION_REQUEST_CODE);
+        return permissionState == PackageManager.PERMISSION_GRANTED;
+
+    }
+
+
+    private void requestPermissions() {
+
+        boolean shouldProvideRationale = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION);
+
+        if(shouldProvideRationale) {
+
+            Log.i(LOG_TAG, "showing rational to the user for more information");
+
+            Snackbar.make(weatherActivityLayout, R.string.location_rationale,
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.ok,
+                    v -> ActivityCompat.requestPermissions(WeatherActivity.this, new String[]
+                           {Manifest.permission.ACCESS_FINE_LOCATION},
+                           FINE_LOCATION_REQUEST_CODE))
+                    .show();
+
+        } else {
+
+            Log.i(LOG_TAG, "Requesting user permission");
+            ActivityCompat.requestPermissions(WeatherActivity.this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, FINE_LOCATION_REQUEST_CODE);
         }
-
     }
 
     /*
@@ -137,21 +175,22 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
 
         switch(requestCode) {
 
-            case FINE_LOCATION_REQUEST_CODE: {
+            case FINE_LOCATION_REQUEST_CODE:
 
                 if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     Log.d(LOG_TAG, "We have permissions! proceeding...");
                     buildLocationSettingsRequest();
                     checkDeviceSettings();
-                    break;
+
 
                 } else {
 
                     Log.w(LOG_TAG, "We've been denied permissions, Therefor we cannot give accurate weather information");
-                    finish(); // we close the app because we can no longer function.
+
                 }
-            }
+                break;
+
         }
     }
 

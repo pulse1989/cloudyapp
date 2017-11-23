@@ -14,12 +14,11 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="@string/location_header"
-            android:textSize="40sp"
+            android:textSize="25sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_weather_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Johannesburg" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_weather_description"
@@ -49,19 +48,82 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_weather_description"
             tools:text="20°c" />
 
+        <TextView
+            android:id="@+id/tv_min_temp_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textSize="15sp"
+            android:layout_marginStart="8dp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:text="@string/min_temp"
+            app:layout_constraintEnd_toStartOf="@+id/img_currentWeather"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/img_currentWeather" />
+
+        <TextView
+            android:id="@+id/tv_max_temp_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/max_temp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.479"
+            app:layout_constraintStart_toEndOf="@+id/app_progress_indicator"
+            app:layout_constraintTop_toBottomOf="@+id/tv_weather_temp" />
+
+        <TextView
+            android:id="@+id/tv_min_temp_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textSize="13sp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/txt_min_temp_indicator"
+            app:layout_constraintBottom_toTopOf="@+id/img_wind_speed_header"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_min_temp_header"
+            app:layout_constraintVertical_bias="0.196"
+            tools:text="4000" />
+
+        <TextView
+            android:id="@+id/max_temp_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textSize="14sp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/txt_max_temp_indicator"
+            app:layout_constraintBottom_toTopOf="@+id/img_air_pressure_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_max_temp_header"
+            app:layout_constraintVertical_bias="0.2"
+            tools:text="3000" />
+
         <ImageView
             android:id="@+id/img_currentWeather"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:src="@drawable/weather_loading"
             android:contentDescription="@string/current_weatherforecast_image"
             app:layout_constraintBottom_toTopOf="@+id/img_humidity_header"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/max_temp_detail"
+            app:layout_constraintStart_toEndOf="@+id/tv_min_temp_detail"
             app:layout_constraintTop_toBottomOf="@+id/tv_weather_temp"
-            app:layout_constraintVertical_bias="0.384"
-            tools:src="@mipmap/ic_launcher" />
+            app:layout_constraintVertical_bias="0.0"/>
 
 
         <TextView
@@ -146,6 +208,7 @@
             android:layout_height="60dp"
             android:layout_marginBottom="19dp"
             android:scaleType="fitXY"
+            android:contentDescription="@string/wind_indicator"
             app:layout_constraintBottom_toTopOf="@+id/tv_wind_speed_header"
             app:layout_constraintEnd_toStartOf="@+id/img_humidity_header"
             app:layout_constraintHorizontal_bias="0.5"
@@ -158,6 +221,7 @@
             android:layout_height="60dp"
             android:layout_marginBottom="19dp"
             android:scaleType="fitXY"
+            android:contentDescription="@string/humidity_content_description"
             app:layout_constraintBottom_toTopOf="@+id/humidity_header"
             app:layout_constraintEnd_toStartOf="@+id/img_air_pressure_header"
             app:layout_constraintHorizontal_bias="0.5"
@@ -169,6 +233,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginBottom="20dp"
+            android:contentDescription="@string/pressure_indicator"
             app:layout_constraintBottom_toTopOf="@+id/air_pressure_header"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

@@ -1,0 +1,41 @@
+{
+  "city": {
+    "id": 4050961,
+    "name": "Blue Springs",
+    "coord": {
+      "lon": -86.5428,
+      "lat": 34.1265
+    },
+    "country": "US",
+    "population": 0
+  },
+  "cod": "200",
+  "message": 0.0982741,
+  "cnt": 1,
+  "list": [
+    {
+      "dt": 1511456400,
+      "temp": {
+        "day": 13.17,
+        "min": 2.27,
+        "max": 14.18,
+        "night": 2.27,
+        "eve": 7,
+        "morn": 13.17
+      },
+      "pressure": 1000.86,
+      "humidity": 62,
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "sky is clear",
+          "icon": "01d"
+        }
+      ],
+      "speed": 1.66,
+      "deg": 78,
+      "clouds": 0
+    }
+  ]
+}

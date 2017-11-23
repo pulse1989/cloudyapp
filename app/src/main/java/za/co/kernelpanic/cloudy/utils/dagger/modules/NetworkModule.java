@@ -1,10 +1,11 @@
-package za.co.kernelpanic.cloudy.utils.di.dagger.modules;
+package za.co.kernelpanic.cloudy.utils.dagger.modules;
 
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -31,7 +32,9 @@ public class NetworkModule {
 
           HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
           loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-          return new OkHttpClient.Builder().addInterceptor(loggingInterceptor).build();
+          Dispatcher requestDispatcher = new Dispatcher();
+          requestDispatcher.setMaxRequests(1); // we ned to rate limit the amount of requests in parallel to one. This way we don't flood the network (and our app)
+          return new OkHttpClient.Builder().addInterceptor(loggingInterceptor).dispatcher(requestDispatcher).build();
       }
 
     /*
