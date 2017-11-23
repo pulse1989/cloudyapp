@@ -13,6 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
+            android:text="@string/location_header"
             android:textSize="40sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_weather_description"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,109 +27,168 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:textSize="25sp"
-            tools:text="Sky Is Clear"
+            android:text="@string/weather_information_header"
+            android:textSize="19sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_weather_temp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_location_header" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_location_header"
+            tools:text="Sky Is Clear" />
 
         <TextView
             android:id="@+id/tv_weather_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginEnd="116dp"
             android:layout_marginStart="119dp"
+            android:layout_marginTop="24dp"
             android:textSize="80sp"
-            app:layout_constraintBottom_toTopOf="@+id/img_forecast_condition"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.54"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_weather_description"
-            tools:text="20°" />
+            tools:text="20°c" />
 
         <ImageView
-            android:id="@+id/img_forecast_condition"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_marginBottom="52dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/img_pressure_indicator"
+            android:id="@+id/img_currentWeather"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/current_weatherforecast_image"
+            app:layout_constraintBottom_toTopOf="@+id/img_humidity_header"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_weather_temp"
+            app:layout_constraintVertical_bias="0.384"
             tools:src="@mipmap/ic_launcher" />
 
+
         <TextView
-            android:id="@+id/tv_wind_info"
+            android:id="@+id/tv_wind_speed_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:text="Pending"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_pressure"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <ImageView
-            android:id="@+id/img_wind_indicator"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="36dp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_wind_info"
-            app:layout_constraintEnd_toStartOf="@+id/img_pressure_indicator"
+            android:fontFamily="sans-serif"
+            android:text="@string/wind_speed_header"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/humidity_header"
+            app:layout_constraintEnd_toStartOf="@+id/humidity_header"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@mipmap/ic_launcher" />
+            app:layout_constraintTop_toTopOf="@+id/humidity_header" />
+
 
         <TextView
-            android:id="@+id/tv_pressure"
+            android:id="@+id/humidity_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:text="Pending"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_humidity"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/humidity_header"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tv_humidity_detail"
+            app:layout_constraintEnd_toStartOf="@+id/air_pressure_header"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tv_wind_info" />
+            app:layout_constraintStart_toEndOf="@+id/tv_wind_speed_header" />
 
         <TextView
-            android:id="@+id/tv_humidity"
+            android:id="@+id/air_pressure_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:text="pending "
-            android:textSize="20sp"
+            android:fontFamily="sans-serif"
+            android:text="@string/air_pressure_header"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/humidity_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/humidity_header"
+            app:layout_constraintTop_toTopOf="@+id/humidity_header" />
+
+        <TextView
+            android:id="@+id/tv_wind_speed_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif"
+            app:layout_constraintEnd_toStartOf="@+id/tv_humidity_detail"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_wind_speed_header"
+            android:text="@string/wind_indicator" />
+
+        <TextView
+            android:id="@+id/tv_humidity_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="44dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/humidity_indicator"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_air_pressure_detail"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_wind_speed_detail"/>
+
+        <TextView
+            android:id="@+id/tv_air_pressure_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/air_pressure_indicator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_humidity_detail"
+            app:layout_constraintTop_toBottomOf="@+id/air_pressure_header" />
+
+        <ImageView
+            android:id="@+id/img_wind_speed_header"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="19dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toTopOf="@+id/tv_wind_speed_header"
+            app:layout_constraintEnd_toStartOf="@+id/img_humidity_header"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_wi_windy" />
+
+        <ImageView
+            android:id="@+id/img_humidity_header"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="19dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toTopOf="@+id/humidity_header"
+            app:layout_constraintEnd_toStartOf="@+id/img_air_pressure_header"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/img_wind_speed_header"
+            app:srcCompat="@drawable/ic_wi_humidity" />
+
+        <ImageView
+            android:id="@+id/img_air_pressure_header"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/air_pressure_header"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/img_humidity_header"
+            app:srcCompat="@drawable/ic_wi_barometer" />
+
+        <ProgressBar
+            android:id="@+id/app_progress_indicator"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:visibility="invisible"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tv_pressure" />
-
-        <ImageView
-            android:id="@+id/img_pressure_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_pressure"
-            app:layout_constraintEnd_toStartOf="@+id/img_humidity_indicator"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/img_wind_indicator"
-            app:srcCompat="@mipmap/ic_launcher" />
-
-        <ImageView
-            android:id="@+id/img_humidity_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_humidity"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/img_pressure_indicator"
-            app:srcCompat="@mipmap/ic_launcher" />
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

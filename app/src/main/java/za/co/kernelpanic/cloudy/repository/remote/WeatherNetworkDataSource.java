@@ -2,8 +2,10 @@ package za.co.kernelpanic.cloudy.repository.remote;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -29,6 +31,7 @@ public class WeatherNetworkDataSource implements  WeatherNetworkInterface {
     private static final String REQUEST_UNITS = "metric";
     private static final int REQUEST_FORECAST_DAYS = 1;
     private MutableLiveData<ForecastResponse> weatherDataStream;
+    private final Context context;
 
     /*
      * This is called from the repository class.
@@ -36,11 +39,11 @@ public class WeatherNetworkDataSource implements  WeatherNetworkInterface {
      */
 
     @Inject
-    public WeatherNetworkDataSource(WeatherApi weatherApi){
+    public WeatherNetworkDataSource(Context context, WeatherApi weatherApi){
 
         this.weatherApi = weatherApi;
+        this.context = context;
         this.weatherDataStream = new MutableLiveData<>();
-
     }
 
     /*
@@ -50,6 +53,7 @@ public class WeatherNetworkDataSource implements  WeatherNetworkInterface {
     @Override
     public LiveData<ForecastResponse> fetchWeatherForecast(double latitude, double longitude) {
 
+
         Call<ForecastResponse> apiResponse = weatherApi.getForecast(API_KEY, latitude, longitude, REQUEST_MODE, REQUEST_UNITS, REQUEST_FORECAST_DAYS);
         apiResponse.enqueue(new Callback<ForecastResponse>() {
             @Override
@@ -58,7 +62,26 @@ public class WeatherNetworkDataSource implements  WeatherNetworkInterface {
                 if(response.isSuccessful()) {
 
                     Log.i(LOG_TAG, "We managed to get data!");
+
                     weatherDataStream.setValue(response.body());
+
+                } else {
+
+                    Log.e(LOG_TAG, "Check the service status or the server you're pointing to. Probably something invalid");
+
+                    switch(response.code()) {
+
+                        case 404:
+                            Toast.makeText(context, "The weather for your location could not be found right now. Lets try again later", Toast.LENGTH_LONG).show();
+                            break;
+                        case 500:
+                            Toast.makeText(context, "The weather service is unavailable right now. Let's try again later", Toast.LENGTH_LONG).show();
+                            break;
+                        default:
+                            Toast.makeText(context, "An unknown error has occurred", Toast.LENGTH_LONG).show();
+                            break;
+
+                    }
                 }
             }
 
@@ -66,10 +89,12 @@ public class WeatherNetworkDataSource implements  WeatherNetworkInterface {
             public void onFailure(@NonNull Call<ForecastResponse> call, @NonNull Throwable t) {
 
                 Log.e(LOG_TAG, "Something went horribly wrong: \n" + t.getMessage());
+                Toast.makeText(context, "Something went wrong. Check your connection and try again", Toast.LENGTH_LONG).show();
 
             }
         });
 
         return weatherDataStream;
     }
+
 }

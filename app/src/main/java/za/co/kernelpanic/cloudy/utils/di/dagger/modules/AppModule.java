@@ -1,5 +1,8 @@
 package za.co.kernelpanic.cloudy.utils.di.dagger.modules;
 
+import android.app.Application;
+import android.content.Context;
+
 import com.google.android.gms.location.LocationRequest;
 
 import javax.inject.Singleton;
@@ -23,4 +26,12 @@ public class AppModule {
         return new LocationRequest();
     }
 
+    /*
+     * Because we need a reference to our context
+     */
+
+    @Provides @Singleton
+    Context providesContext(Application application){
+        return application;
+    }
 }

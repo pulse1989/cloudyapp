@@ -13,11 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
 import dagger.android.support.AndroidSupportInjection;
 import za.co.kernelpanic.cloudy.R;
 import za.co.kernelpanic.cloudy.data.ForecastResponse;
@@ -35,6 +35,12 @@ public class WeatherFragment extends Fragment {
 
     //we need to check for network connectivity before trying to get data
     private boolean isConnected;
+
+    /*
+     * Our loading indicator
+     */
+
+    private ProgressBar pendingProgress;
 
     /*
      * We then inject our two special lads here in order to make this work,
@@ -56,6 +62,8 @@ public class WeatherFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
         /*
          * In order for our business logic layer to respect this UI lifecycle, we bind our viewmodel to the UI.
          * This way even during configuration and other state changes. the app will be fine.
@@ -70,10 +78,9 @@ public class WeatherFragment extends Fragment {
 
         // Inflate the layout for this fragment using databinding
        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_weather_forecast, container, false);
-       ButterKnife.bind(getActivity());
+       pendingProgress = binding.appProgressIndicator;
 
        checkConnectivity();
-
        return binding.getRoot();
     }
 
@@ -102,12 +109,20 @@ public class WeatherFragment extends Fragment {
         if(isConnected) {
 
             getData();
+            showLoading();
 
         } else {
 
             Toast.makeText(getContext(), "Unable to connect to service. Please check your connection and try again", Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    private void showLoading() {
+
+        pendingProgress.setVisibility(View.VISIBLE);
+        binding.imgCurrentWeather.setVisibility(View.INVISIBLE);
+        getData();
     }
 
     /*
@@ -118,10 +133,11 @@ public class WeatherFragment extends Fragment {
 
         viewModel.getWeather().observe(this, weatherInfo -> {
 
-            if(weatherInfo != null) {
+            if(weatherInfo != null && weatherInfo.getForecastList().size() > 0) {
 
                 Log.i(LOG_TAG, "got info!");
 
+                hideLoading();
                 updateUI(weatherInfo);
 
             } else {
@@ -135,6 +151,12 @@ public class WeatherFragment extends Fragment {
 
     }
 
+    private void hideLoading() {
+
+        pendingProgress.setVisibility(View.INVISIBLE);
+        binding.imgCurrentWeather.setVisibility(View.VISIBLE);
+    }
+
     private void updateUI(ForecastResponse weatherInfo) {
 
         /*
@@ -142,8 +164,7 @@ public class WeatherFragment extends Fragment {
          */
 
         int weatherId = weatherInfo.getForecastList().get(0).getWeather().get(0).getIconId();
-        int weatherImageId = CloudyWeatherUtils.getLargeArtResourceIdForWeatherCondition(weatherId);
-
+        int weatherImageId = CloudyWeatherUtils.getLargeCurrentWeatherArt(weatherId);
 
 
         /*
@@ -186,10 +207,10 @@ public class WeatherFragment extends Fragment {
         binding.tvLocationHeader.setText(weatherLocation);
         binding.tvWeatherDescription.setText(weatherDescription);
         binding.tvWeatherTemp.setText(currentTemp);
-        binding.tvHumidity.setText(humidityString);
-        binding.tvPressure.setText(pressureString);
-        binding.tvWindInfo.setText(windSpeedString);
-        binding.imgForecastCondition.setImageResource(weatherImageId);
+        binding.tvHumidityDetail.setText(humidityString);
+        binding.tvAirPressureDetail.setText(pressureString);
+        binding.tvWindSpeedDetail.setText(windSpeedString);
+        binding.imgCurrentWeather.setImageResource(weatherImageId);
 
     }
 

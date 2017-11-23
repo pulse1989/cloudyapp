@@ -1,7 +1,6 @@
 package za.co.kernelpanic.cloudy.repository.location;
 
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
@@ -71,7 +70,7 @@ public class LocationUtils {
      * Lastly, we need our application context in order to use our FusedLocationClient within this class.
      */
     @Inject
-    public LocationUtils(Application context, LocationRequest locationRequest) {
+    public LocationUtils(Context context, LocationRequest locationRequest) {
 
         this.context = context.getApplicationContext();
         this.locationRequest = locationRequest;

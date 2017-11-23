@@ -94,4 +94,14 @@
     <string name="condition_962">Hurricane</string>
 
     <string name="condition_unknown">Unknown (<xliff:g id="conditionId">%1$d</xliff:g>)</string>
+    <string name="humidity_indicator">----</string>
+    <string name="pressure_indicator">----</string>
+    <string name="wind_indicator">----</string>
+    <string name="weather_information_header">-----</string>
+    <string name="location_header">-----</string>
+    <string name="wind_speed_header">Wind Speed</string>
+    <string name="humidity_header">Humidity</string>
+    <string name="air_pressure_header">Air Pressure</string>
+    <string name="current_weatherforecast_image">current_weatherForecast_image</string>
+    <string name="air_pressure_indicator">-----</string>
 </resources>
