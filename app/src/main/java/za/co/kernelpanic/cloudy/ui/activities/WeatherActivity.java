@@ -73,8 +73,9 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
          */
         if(savedInstanceState == null && checkPlayServices() ) {
 
-            loadFragment();
-        }
+            requestPermissions();
+
+         }
 
     }
 
@@ -122,11 +123,13 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
 
     @Override
     protected void onResume() {
+
         super.onResume();
 
         if(!checkPermissions()) {
 
             requestPermissions();
+
         }
     }
 
@@ -180,6 +183,7 @@ public class WeatherActivity extends AppCompatActivity  implements HasSupportFra
                 if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                     Log.d(LOG_TAG, "We have permissions! proceeding...");
+                    loadFragment();
                     buildLocationSettingsRequest();
                     checkDeviceSettings();
 

@@ -36,6 +36,7 @@ dependencies {
     implementation "com.android.support:design:$supportlib_version"
     implementation "com.android.support:support-v4:$supportlib_version"
     implementation "com.google.android.gms:play-services-location:$playsrv_version"
+    implementation "com.google.firebase:firebase-crash:$playsrv_version"
     implementation "com.android.support.constraint:constraint-layout:$constraint_version"
 
     //arch components:
@@ -43,6 +44,7 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$arch_version"
 
     //Square
+
     compile "com.squareup.retrofit2:retrofit:$retrofit_version"
     compile "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
     compile "com.squareup.retrofit2:converter-gson:$retrofit_version"
@@ -63,3 +65,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
 }
+
+
+apply plugin: 'com.google.gms.google-services'
