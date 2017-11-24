@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "150808187888",
+    "firebase_url": "https://cloudy-fb902.firebaseio.com",
+    "project_id": "cloudy-fb902",
+    "storage_bucket": "cloudy-fb902.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150808187888:android:3641daadef92f8ca",
+        "android_client_info": {
+          "package_name": "za.co.kernelpanic.cloudy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150808187888-he7pk7144joq5ttkfd02pa2luul4v215.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "za.co.kernelpanic.cloudy",
+            "certificate_hash": "264be932be0eb954f5dbe9b0daaa834b8e9d7a3c"
+          }
+        },
+        {
+          "client_id": "150808187888-ob64g0a5lqhtarq29pad3r0luoodjsc7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQV6iBssbBN-yQAkVkXRVOUfWSbn-_rLE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150808187888-ob64g0a5lqhtarq29pad3r0luoodjsc7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
