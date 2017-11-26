@@ -2,7 +2,7 @@
 
 The "Cloudy" weather app architecture image is below:
 
-![app arch](https://imgur.com/a/afalE)
+![app arch](https://image.ibb.co/kpCs2m/cloudy_2.png)
 
 As we see, the repository is the single source of truth for the entire app, handling the interaction between the gps service in order to get updates, the api service to get the data, which will be sent back to the UI. 
 
