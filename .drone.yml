@@ -1,0 +1,14 @@
+pipeline: 
+  debug: 
+    commands: 
+      - "chmod +x gradlew"
+      - "./gradlew dependencies || true"
+      - "bash ./gradlew assembleDebug"
+    image: drone-registry.kernelpanic.co.za/android-image
+  release: 
+    commands: 
+      - "chmod +x gradlew"
+      - "./gradlew dependencies || true"
+      - "bash ./gradlew assembleDebug"
+    image: drone-registry.kernelpanic.co.za/android-image
+
