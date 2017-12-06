@@ -5,9 +5,9 @@ pipeline:
       - "chmod +x gradlew"
       - "./gradlew dependencies || true"
       - "bash ./gradlew assembleDebug"
-  release:
+  unsignedrelease:
     image: drone-registry.kernelpanic.co.za/android-image
     commands:
       - "chmod +x gradlew"
       - "./gradlew dependencies || true"
-      - "bash ./gradlew assembleDebug"
+      - "bash ./gradlew assembleRelease"
