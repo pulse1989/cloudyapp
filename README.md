@@ -1,6 +1,12 @@
 ### Cloudy - A Simple Android Weather App
 
+
+![Build Status](https://drone.kernelpanic.co.za/api/badges/Android/WeatherDVT/status.svg?branch=master)
+
+
 The "Cloudy" weather app architecture image is below:
+
+
 
 ![app arch](https://image.ibb.co/kpCs2m/cloudy_2.png)
 
