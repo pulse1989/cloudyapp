@@ -1,6 +1,6 @@
 pipeline:
   debug:
-    image: drone-registry.kernelpanic.co.za/android-image
+    image: drone-registry.kernelpanic.co.za/android-image-sdk-27
     commands:
       - "chmod +x gradlew"
       - "./gradlew dependencies || true"
