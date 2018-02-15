@@ -29,10 +29,10 @@ ext {
          retrofit_version = '2.3.0'
          okhttp_version = '3.9.0'
          dagger_version = '2.11'
-         supportlib_version = '26.1.0'
+         supportlib_version = '27.0.2'
          gson_version = '2.8.2'
          constraint_version = '1.0.2'
-         playsrv_version = '11.6.2'
+         playsrv_version = '11.8.0'
          butterknife_version = '8.8.1'
 }
 task clean(type: Delete) {
