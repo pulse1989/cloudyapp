@@ -4,10 +4,11 @@ pipeline:
     commands:
       - "chmod +x gradlew"
       - "./gradlew dependencies || true"
-      - "bash ./gradlew assembleDebug"
+      - "org.gradle.daemon=false
+      - "bash ./gradlew assembleDebug --no-daemon"
   unsignedrelease:
     image: drone-registry.kernelpanic.co.za/android-image-sdk-27
     commands:
       - "chmod +x gradlew"
       - "./gradlew dependencies || true"
-      - "bash ./gradlew assembleRelease"
+      - "bash ./gradlew assembleRelease --no-daemon"
