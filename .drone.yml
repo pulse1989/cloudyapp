@@ -1,12 +1,12 @@
 pipeline:
   debug:
-    image: drone-registry.kernelpanic.co.za/android-image-sdk-27
+    image: drone-registry.kernelpanic.co.za/android-builder28
     commands:
       - "chmod +x gradlew"
       - "./gradlew dependencies || true"
       - "bash ./gradlew assembleDebug"
   unsignedrelease:
-    image: drone-registry.kernelpanic.co.za/android-image-sdk-27
+    image: drone-registry.kernelpanic.co.za/android-builder28
     commands:
       - "chmod +x gradlew"
       - "./gradlew dependencies || true"
