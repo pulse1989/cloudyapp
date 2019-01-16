@@ -20,7 +20,7 @@ public class CloudyRepository implements CloudyRepoInterface {
     private static final String LOG_TAG = CloudyRepository.class.getSimpleName();
 
     /*
-     * Location requests are handled by LocationUtils class, we get it from there
+     * Location requests are handled by LocationUtilsDep class, we get it from there
      */
 
     private final LocationUtils locationUtils;

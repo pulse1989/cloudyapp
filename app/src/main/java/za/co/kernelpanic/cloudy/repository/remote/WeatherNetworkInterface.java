@@ -1,7 +1,6 @@
 package za.co.kernelpanic.cloudy.repository.remote;
 
 import androidx.lifecycle.LiveData;
-
 import za.co.kernelpanic.cloudy.data.ForecastResponse;
 
 

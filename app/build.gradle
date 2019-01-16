@@ -37,6 +37,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    //kotlin:
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
     //support libs + location :
     implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
     implementation "androidx.recyclerview:recyclerview:$androidx_recyclerview"
@@ -54,6 +57,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
 
     //Dagger
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -69,7 +73,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-}
 
+}
 
 apply plugin: 'com.google.gms.google-services'

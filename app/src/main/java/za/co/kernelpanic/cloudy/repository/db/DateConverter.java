@@ -1,7 +1,5 @@
 package za.co.kernelpanic.cloudy.repository.db;
 
-import android.arch.persistence.room.TypeConverter;
-
 import java.util.Date;
 
 /**
@@ -10,12 +8,12 @@ import java.util.Date;
 
 public class DateConverter {
 
-    @TypeConverter
+//    @TypeConverter
     public static Date toDate(Long timestamp){
         return timestamp == null ? null : new Date(timestamp);
     }
 
-    @TypeConverter
+//    @TypeConverter
     public static Long toTimeStamp(Date date) {
         return date == null ? null : date.getTime();
     }
