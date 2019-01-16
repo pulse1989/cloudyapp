@@ -59,6 +59,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
 
     //Dagger
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -66,14 +67,16 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
 
     //Annotation Processors
-    kapt "androidx.room:room-compiler-ktx:$arch_version"
+    kapt "androidx.room:room-compiler:$arch_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
     //testlibs
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
+    testImplementation "androidx.arch.core:core-testing:$androidx_lifecycle_version"
+    testImplementation "androidx.room:room-testing:$androix_room_version"
+    androidTestImplementation "androidx.test:runner:$androidx_testrunner_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_espresso_version"
 }
 
 apply plugin: 'com.google.gms.google-services'

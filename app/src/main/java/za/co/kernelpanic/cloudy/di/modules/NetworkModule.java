@@ -9,8 +9,8 @@ import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import za.co.kernelpanic.cloudy.repository.remote.WeatherApiDep;
+import retrofit2.converter.moshi.MoshiConverterFactory;
+import za.co.kernelpanic.cloudy.repository.remote.WeatherApi;
 
 /**
  * The network module is where all things network are declared
@@ -26,6 +26,10 @@ public class NetworkModule {
      * Really awesome debugging tool. The output very much matches a normal cURL command.
      * We build this up using dagger and provide it to retrofit
      */
+
+    private String getBaseUrl() {
+        return "https://api.openweathermap.org/data/2.5/forecast/";
+    }
 
     @Provides @Singleton
         public OkHttpClient providesHttpInterceptor() {
@@ -44,9 +48,9 @@ public class NetworkModule {
     @Provides @Singleton
         public Retrofit providesRetrofit() {
           return new Retrofit.Builder()
-                     .baseUrl("http://api.openweathermap.org/data/2.5/forecast/")
+                     .baseUrl(getBaseUrl())
                      .client(providesHttpInterceptor())
-                     .addConverterFactory(GsonConverterFactory.create())
+                     .addConverterFactory(MoshiConverterFactory.create())
                      .build();
       }
 
@@ -54,8 +58,8 @@ public class NetworkModule {
      *  We build up the retrofit client using our weatherApi class that containts all the methods we need retrofit to manage.
      */
     @Provides @Singleton
-    public WeatherApiDep providesWeatherApi(Retrofit retrofit) {
-          return retrofit.create(WeatherApiDep.class);
+    public WeatherApi providesWeatherApi(Retrofit retrofit) {
+          return retrofit.create(WeatherApi.class);
     }
 
 }
