@@ -1,7 +1,7 @@
 package za.co.kernelpanic.cloudy.utils.dagger.modules;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import dagger.Binds;
 import dagger.Module;

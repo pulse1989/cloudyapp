@@ -1,6 +1,6 @@
 package za.co.kernelpanic.cloudy.repository.main;
 
-import android.arch.lifecycle.LiveData;
+import androidx.lifecycle.LiveData;
 import android.location.Location;
 
 import za.co.kernelpanic.cloudy.data.ForecastResponse;
