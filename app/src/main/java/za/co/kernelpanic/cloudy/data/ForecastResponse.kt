@@ -5,4 +5,4 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass (generateAdapter = true)
 data class ForecastResponse (val city: City,
-                             @Json(name = "list")val forecastList: List<Forecast>? = emptyList())
+                             @Json(name = "list")val forecastList: List<Forecast>)

@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import za.co.kernelpanic.cloudy.data.ForecastResponse;
-import za.co.kernelpanic.cloudy.repository.main.CloudyRepository;
+import za.co.kernelpanic.cloudy.repository.main.CloudyRepositoryImpl;
 
 
 /**
@@ -22,11 +22,10 @@ import za.co.kernelpanic.cloudy.repository.main.CloudyRepository;
 public class WeatherForecastViewModel extends ViewModel {
 
     private static final String LOG_TAG = WeatherForecastViewModel.class.getSimpleName();
-    private CloudyRepository cloudyRepository;
-    private LiveData<ForecastResponse> forecastData;
+    private CloudyRepositoryImpl cloudyRepository;
 
     @Inject //provided by dagger via the map
-    public WeatherForecastViewModel(CloudyRepository repository) {
+    public WeatherForecastViewModel(CloudyRepositoryImpl repository) {
         this.cloudyRepository = repository;
     }
 
@@ -50,17 +49,10 @@ public class WeatherForecastViewModel extends ViewModel {
      *  All this is done while respecting the Lifecycle of the application :D  (as Livedata objects are lifecycle aware)
      */
     public LiveData<ForecastResponse> getWeather() {
-
-        forecastData = Transformations.switchMap(getLastLocation(), location -> cloudyRepository.getForecast(location.getLatitude(), location.getLongitude()));
-
-        return forecastData;
+        return  Transformations.switchMap(getLastLocation(), location -> cloudyRepository.getForecast(location.getLatitude(), location.getLongitude()));
     }
 
     public void removeLocationUpdates() {
-
         cloudyRepository.shutdownLocationUpdates();
     }
-
-
-
 }
