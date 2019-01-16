@@ -21,9 +21,10 @@ import javax.inject.Inject;
  * The ViewModel would then use this data to send the remote request. The UI  will be loading during this process
  */
 
-public class LocationUtils {
+@Deprecated
+public class LocationUtilsDep {
 
-    private static final String  LOG_TAG = LocationUtils.class.getSimpleName();
+    private static final String  LOG_TAG = LocationUtilsDep.class.getSimpleName();
 
     /*
      * We have access to the user's location via this API. It requires google play services to be installed on the device.
@@ -70,7 +71,7 @@ public class LocationUtils {
      * Lastly, we need our application context in order to use our FusedLocationClient within this class.
      */
     @Inject
-    public LocationUtils(Context context, LocationRequest locationRequest) {
+    public LocationUtilsDep(Context context, LocationRequest locationRequest) {
 
         this.context = context.getApplicationContext();
         this.locationRequest = locationRequest;
