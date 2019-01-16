@@ -1,4 +1,4 @@
-package za.co.kernelpanic.cloudy.utils.dagger.modules;
+package za.co.kernelpanic.cloudy.di.modules;
 
 import android.app.Application;
 import android.content.Context;

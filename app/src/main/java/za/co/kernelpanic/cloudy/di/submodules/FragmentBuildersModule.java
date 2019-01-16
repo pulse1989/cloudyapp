@@ -1,4 +1,4 @@
-package za.co.kernelpanic.cloudy.utils.dagger.submodules;
+package za.co.kernelpanic.cloudy.di.submodules;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

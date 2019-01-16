@@ -1,4 +1,4 @@
-package za.co.kernelpanic.cloudy.utils.dagger.modules;
+package za.co.kernelpanic.cloudy.di.modules;
 
 
 import javax.inject.Singleton;
@@ -10,7 +10,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import za.co.kernelpanic.cloudy.repository.remote.WeatherApi;
+import za.co.kernelpanic.cloudy.repository.remote.WeatherApiDep;
 
 /**
  * The network module is where all things network are declared
@@ -54,8 +54,8 @@ public class NetworkModule {
      *  We build up the retrofit client using our weatherApi class that containts all the methods we need retrofit to manage.
      */
     @Provides @Singleton
-    public WeatherApi providesWeatherApi(Retrofit retrofit) {
-          return retrofit.create(WeatherApi.class);
+    public WeatherApiDep providesWeatherApi(Retrofit retrofit) {
+          return retrofit.create(WeatherApiDep.class);
     }
 
 }
