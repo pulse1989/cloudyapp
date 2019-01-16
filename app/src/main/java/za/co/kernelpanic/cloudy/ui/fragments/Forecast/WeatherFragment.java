@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.android.material.snackbar.Snackbar;
-import androidx.fragment.app.Fragment;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,11 +23,10 @@ import android.widget.Toast;
 import javax.inject.Inject;
 
 import dagger.android.DaggerFragment;
-import dagger.android.support.AndroidSupportInjection;
 import za.co.kernelpanic.cloudy.R;
 import za.co.kernelpanic.cloudy.data.ForecastResponse;
 import za.co.kernelpanic.cloudy.databinding.FragmentWeatherForecastBinding;
-import za.co.kernelpanic.cloudy.utils.CloudyWeatherUtils;
+import za.co.kernelpanic.cloudy.utils.WeatherUtils;
 import za.co.kernelpanic.cloudy.di.modules.WeatherViewModelFactory;
 
 
@@ -130,7 +129,7 @@ public class WeatherFragment extends DaggerFragment {
          * Weather Icon to set for the app
          */
         int weatherId = weatherInfo.getForecastList().get(0).getWeather().get(0).getIconId();
-        int weatherImageId = CloudyWeatherUtils.getLargeCurrentWeatherArt(weatherId);
+        int weatherImageId = WeatherUtils.getLargeCurrentWeatherArt(weatherId);
         /*
          * Location specific info
          */
@@ -142,9 +141,9 @@ public class WeatherFragment extends DaggerFragment {
         double temperature = weatherInfo.getForecastList().get(0).getTemperature().getDayForecast();
         double highTemp = weatherInfo.getForecastList().get(0).getTemperature().getMaxTemp();
         double lowTemp = weatherInfo.getForecastList().get(0).getTemperature().getMinTemp();
-        String currentTemp = CloudyWeatherUtils.formatTemperature(getActivity(), temperature);
-        String maxTemp  = CloudyWeatherUtils.formatTemperature(getActivity(), highTemp);
-        String minTemp = CloudyWeatherUtils.formatTemperature(getActivity(), lowTemp);
+        String currentTemp = WeatherUtils.formatTemperature(getActivity(), temperature);
+        String maxTemp  = WeatherUtils.formatTemperature(getActivity(), highTemp);
+        String minTemp = WeatherUtils.formatTemperature(getActivity(), lowTemp);
         /*
          * Pressure and humidity
          */
@@ -157,7 +156,7 @@ public class WeatherFragment extends DaggerFragment {
          */
         double windSpeed = weatherInfo.getForecastList().get(0).getWindSpeed();
         double windDirection = weatherInfo.getForecastList().get(0).getWindDirection();
-        String windSpeedString = CloudyWeatherUtils.getFormattedWind(getActivity(), windSpeed, windDirection);
+        String windSpeedString = WeatherUtils.getFormattedWind(getActivity(), windSpeed, windDirection);
         //we now have to bind all our awesome variables to each of their views so we can see the weather
         binding.tvLocationHeader.setText(weatherLocation);
         binding.tvWeatherDescription.setText(weatherDescription);

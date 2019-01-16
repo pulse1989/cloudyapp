@@ -21,7 +21,7 @@
     <string name="network_change_receiver_broadcast">NetworkChangeReceiver</string>
 
     <!-- - - - - - - - - - - - - - - - -
-      - Used by CloudyWeatherUtils
+      - Used by WeatherUtils
       - - - - - - - - - - - - - - - - -->
 
     <!-- Temperature format -->
