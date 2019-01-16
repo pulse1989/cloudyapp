@@ -1,7 +1,7 @@
 ### Cloudy - A Simple Android Weather App
 
 
-**** currently being migrated to kotlin ***
+**** currently being updated and migrated to kotlin ***
 
 The "Cloudy" weather app architecture image is below:
 
