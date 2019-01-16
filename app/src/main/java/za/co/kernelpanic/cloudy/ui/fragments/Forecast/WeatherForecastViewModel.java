@@ -1,7 +1,6 @@
 package za.co.kernelpanic.cloudy.ui.fragments.Forecast;
 
 
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;

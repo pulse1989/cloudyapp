@@ -1,9 +1,9 @@
 package za.co.kernelpanic.cloudy.repository.main;
 
 import androidx.lifecycle.LiveData;
-import android.location.Location;
-
 import za.co.kernelpanic.cloudy.data.ForecastResponse;
+
+import android.location.Location;
 
 public interface CloudyRepoInterface {
 
