@@ -27,7 +27,7 @@ import za.co.kernelpanic.cloudy.R;
 import za.co.kernelpanic.cloudy.data.ForecastResponse;
 import za.co.kernelpanic.cloudy.databinding.FragmentWeatherForecastBinding;
 import za.co.kernelpanic.cloudy.utils.CloudyWeatherUtils;
-import za.co.kernelpanic.cloudy.utils.WeatherViewModelFactory;
+import za.co.kernelpanic.cloudy.di.modules.WeatherViewModelFactory;
 
 
 public class WeatherFragment extends Fragment {

@@ -1,4 +1,4 @@
-package za.co.kernelpanic.cloudy.utils;
+package za.co.kernelpanic.cloudy.di.modules;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;

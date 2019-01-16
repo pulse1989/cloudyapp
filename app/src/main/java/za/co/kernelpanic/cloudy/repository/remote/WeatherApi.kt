@@ -1,16 +1,16 @@
-package za.co.kernelpanic.cloudy.repository.remote;
+package za.co.kernelpanic.cloudy.repository.remote
 
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
-import za.co.kernelpanic.cloudy.data.ForecastResponse;
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Query
+import za.co.kernelpanic.cloudy.data.ForecastResponse
 
 /**
  * Interface responsible for making requests to our weather Api service.
  * Our queries contain our latitude and longitude as received by our location listener service.
  **/
 
-public interface WeatherApi {
+interface WeatherApi {
 
     /*
      * This is the actual api call performed by retrofit.
@@ -19,12 +19,13 @@ public interface WeatherApi {
      * This can easily be changed though, which is why it's a query rather than a hard-coded value.
      * Same as the rest
      */
+
     @GET("daily")
-    Call<ForecastResponse> getForecast(
-            @Query("APPID") String appId,
-            @Query("lat") double latitude,
-            @Query("lon") double longitude,
-            @Query("mode") String mode,
-            @Query("units") String unitType,
-            @Query("cnt") int dayCount);
+    fun getForecast(@Query("APPID") appId: String,
+                    @Query("lat") latitude: Double,
+                    @Query("lon") longitude: Double,
+                    @Query("mode") mode: String,
+                    @Query("units") unitType: String,
+                    @Query("cnt") dayCount: Int) : Call<ForecastResponse>
+
 }

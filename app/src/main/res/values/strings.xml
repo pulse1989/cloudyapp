@@ -119,5 +119,10 @@
     <string name="txt_max_temp_indicator">-----</string>
     <string name="humidity_content_description">humidityIndicator</string>
 
-
+    <!-- response code strings -->
+    <string name="response_code_404">The weather for your location could not be found right now. Lets try again later</string>
+    <string name="response_code_500">The weather service is unavailable right now. Let\'s try again later</string>
+    <string name="default_response_code_error">An unknown error has occurred</string>
+    <string name="response_failure_log">Something went horribly wrong - %1s</string>
+    <string name="response_failure_text">Something went wrong. Please check your location and try again.</string>
 </resources>

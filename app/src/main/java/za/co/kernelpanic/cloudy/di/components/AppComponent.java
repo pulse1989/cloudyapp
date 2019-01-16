@@ -1,4 +1,4 @@
-package za.co.kernelpanic.cloudy.utils.dagger.components;
+package za.co.kernelpanic.cloudy.di.components;
 
 
 import android.app.Application;
@@ -9,10 +9,10 @@ import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjectionModule;
 import za.co.kernelpanic.cloudy.utils.App;
-import za.co.kernelpanic.cloudy.utils.dagger.modules.AppModule;
-import za.co.kernelpanic.cloudy.utils.dagger.modules.NetworkModule;
-import za.co.kernelpanic.cloudy.utils.dagger.modules.ViewModelModule;
-import za.co.kernelpanic.cloudy.utils.dagger.modules.WeatherActivityModule;
+import za.co.kernelpanic.cloudy.di.modules.AppModule;
+import za.co.kernelpanic.cloudy.di.modules.NetworkModule;
+import za.co.kernelpanic.cloudy.di.modules.ViewModelModule;
+import za.co.kernelpanic.cloudy.di.modules.WeatherActivityModule;
 
 /**
  * Our app component is responsible for building out our object graph so that dagger is aware of each and every object instance to provide when needed.

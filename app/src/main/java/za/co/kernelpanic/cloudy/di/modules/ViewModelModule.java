@@ -1,4 +1,4 @@
-package za.co.kernelpanic.cloudy.utils.dagger.modules;
+package za.co.kernelpanic.cloudy.di.modules;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -7,7 +7,6 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
 import za.co.kernelpanic.cloudy.ui.fragments.Forecast.WeatherForecastViewModel;
-import za.co.kernelpanic.cloudy.utils.WeatherViewModelFactory;
 
 @Module
 public abstract class ViewModelModule {
