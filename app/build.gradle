@@ -43,11 +43,13 @@ dependencies {
     //support libs + location :
     implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
     implementation "androidx.recyclerview:recyclerview:$androidx_recyclerview"
-    implementation "com.google.android.material:material:$designlib_version"
     implementation "androidx.legacy:legacy-support-v4:$supportlib_version"
+    implementation "androidx.constraintlayout:constraintlayout:$androidx_constraint_version"
+    implementation "com.google.android.material:material:$designlib_version"
+
+    //play
     implementation "com.google.android.gms:play-services-location:$playsrv_version"
     implementation "com.google.firebase:firebase-crash:$firebase_crash_version"
-    implementation "androidx.constraintlayout:constraintlayout:$androidx_constraint_version"
 
     //arch components:
     implementation "androidx.lifecycle:lifecycle-extensions:$androidx_lifecycle_version"
@@ -56,7 +58,6 @@ dependencies {
     //Square
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
 
     //Dagger
@@ -65,7 +66,7 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
 
     //Annotation Processors
-    annotationProcessor "androidx.room:room-compiler:$arch_version"
+    kapt "androidx.room:room-compiler-ktx:$arch_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
@@ -73,7 +74,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-
 }
 
 apply plugin: 'com.google.gms.google-services'
