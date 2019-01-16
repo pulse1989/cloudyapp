@@ -31,7 +31,7 @@ class LocationUtils @Inject constructor(private val context: Context, private va
      */
     private val locationStream = MutableLiveData<Location>()
 
-    /*
+   /*
     * Location variable for getting the user's location with properties such as accuracy etc
     */
     private var currentLocation: Location? = null
@@ -93,7 +93,6 @@ class LocationUtils @Inject constructor(private val context: Context, private va
      * Once we've given the user the relevant information with regards to the weather, we can stop listening to location
      * updates by calling this method.
      */
-
     fun stopLocationUpdates() {
         fusedLocationClient.removeLocationUpdates(locationCallback)
         locationInfoLogger("Fused location client stopped successfully")
