@@ -9,7 +9,4 @@ package za.co.kernelpanic.cloudy.repository.db;
 
 public class ForecastDaoUtil {
 
-
-
-
 }
