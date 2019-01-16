@@ -34,7 +34,6 @@ public class WeatherForecastViewModel extends ViewModel {
      * It's called by our weatherMethod because essentially, this is a dependency...
      */
     private LiveData<Location> getLastLocation(){
-
         return cloudyRepository.getUserLocation();
     }
 
