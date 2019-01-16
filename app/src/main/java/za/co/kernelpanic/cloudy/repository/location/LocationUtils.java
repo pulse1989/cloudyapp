@@ -1,8 +1,8 @@
 package za.co.kernelpanic.cloudy.repository.location;
 
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.location.Location;
 import android.os.Looper;
