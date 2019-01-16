@@ -1,8 +1,7 @@
 ### Cloudy - A Simple Android Weather App
 
 
-![Build Status](https://drone.kernelpanic.co.za/api/badges/Android/WeatherDVT/status.svg?branch=master)
-
+**** currently being migrated to kotlin ***
 
 The "Cloudy" weather app architecture image is below:
 
@@ -32,8 +31,8 @@ When the app is in a suspended state, we make sure the  LocationProvider stops a
 
 #### Cloudy makes use of the following libraries:
 
-* Android Architecture components (as mentioned above, LiveData and ViewModel) ver 1.0 stable
-* Dagger 2.11 (incl. dagger.android)
+* Android Architecture components (as mentioned above, LiveData and ViewModel) ver 2.0.0-beta01
+* Dagger 2.16 (incl. dagger.android)
 * Firebase for crashlytics reporting.
 * Retrofit for managing our api calls.
 * Okhttp3 for intercepting all our API calls to make sure the request and response are accurate
