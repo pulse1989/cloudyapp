@@ -29,7 +29,6 @@ import za.co.kernelpanic.cloudy.databinding.FragmentWeatherForecastBinding;
 import za.co.kernelpanic.cloudy.utils.WeatherUtils;
 import za.co.kernelpanic.cloudy.di.modules.WeatherViewModelFactory;
 
-
 public class WeatherFragment extends DaggerFragment {
 
     private static final String LOG_TAG = WeatherFragment.class.getSimpleName();
