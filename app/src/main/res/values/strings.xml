@@ -5,6 +5,15 @@
     <!-- Location permission request  + denied rationale -->
     <string name="location_rationale">In order to provide you with the proper weather data, we need permission to access your location. Pretty please?</string>
     <string name="permission_denied_explanation">Unfortunately, without the permission, the app doesn\'t function. Please try granting permissions again to continue</string>
+
+    <!-- log strings -->
+    <string name="requesting_permission_text">Requesting user permission"</string>
+    <string name="log_got_user_permissions">We have permissions! proceeding</string>
+    <string name="log_user_correct_settings">"User has correct setting set.</string>
+    <string name="log_get_required_settings">"We don't have the required settings. trying to resolve.."</string>
+    <string name="log_pending_intent_request">Unable to execute PendingIntent</string>
+    <string name="log_pending_intent_failure">"Unable to solve settings via this App. Please resolve in location settings"</string>
+
     <string name="ok">OK</string>
 
     <!-- Fragment specific properties for our default UI Indicators -->
@@ -21,7 +30,7 @@
     <string name="network_change_receiver_broadcast">NetworkChangeReceiver</string>
 
     <!-- - - - - - - - - - - - - - - - -
-      - Used by CloudyWeatherUtils
+      - Used by WeatherUtils
       - - - - - - - - - - - - - - - - -->
 
     <!-- Temperature format -->
@@ -125,4 +134,10 @@
     <string name="default_response_code_error">An unknown error has occurred</string>
     <string name="response_failure_log">Something went horribly wrong - %1s</string>
     <string name="response_failure_text">Something went wrong. Please check your location and try again.</string>
+
+    <!-- play services error string -->
+    <string name="play_services_missing">Play Services package is missing, unable to continue</string>
+    <string name="play_services_installed">We have play services installed. continuing</string>
+    <string name="location_permission_rationale">Showing rationale to the user for more information</string>
+
 </resources>

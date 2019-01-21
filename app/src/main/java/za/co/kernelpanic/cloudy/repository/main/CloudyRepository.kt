@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import za.co.kernelpanic.cloudy.data.ForecastResponse
 
 interface CloudyRepository {
-
     /*
      * Repository interface for our Concrete implementation of this class
      */

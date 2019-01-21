@@ -16,9 +16,9 @@ import za.co.kernelpanic.cloudy.R;
 /*
  * Thanks google! Utility class was found on github -  Vusi
  */
-public final class CloudyWeatherUtils {
+public final class WeatherUtils {
 
-    private static final String LOG_TAG = CloudyWeatherUtils.class.getSimpleName();
+    private static final String LOG_TAG = WeatherUtils.class.getSimpleName();
 
     /**
      * Temperature data is stored in Celsius by our app. Depending on the user's preference,

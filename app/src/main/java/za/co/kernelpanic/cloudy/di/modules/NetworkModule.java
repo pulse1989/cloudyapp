@@ -9,8 +9,8 @@ import okhttp3.Dispatcher;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import za.co.kernelpanic.cloudy.repository.remote.WeatherApiDep;
+import retrofit2.converter.moshi.MoshiConverterFactory;
+import za.co.kernelpanic.cloudy.repository.remote.WeatherApi;
 
 /**
  * The network module is where all things network are declared
@@ -27,35 +27,42 @@ public class NetworkModule {
      * We build this up using dagger and provide it to retrofit
      */
 
-    @Provides @Singleton
-        public OkHttpClient providesHttpInterceptor() {
+    private String getBaseUrl() {
+        return "https://api.openweathermap.org/data/2.5/forecast/";
+    }
 
-          HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-          loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-          Dispatcher requestDispatcher = new Dispatcher();
-          requestDispatcher.setMaxRequests(1); // we ned to rate limit the amount of requests in parallel to one. This way we don't flood the network (and our app)
-          return new OkHttpClient.Builder().addInterceptor(loggingInterceptor).dispatcher(requestDispatcher).build();
-      }
+    @Provides
+    @Singleton
+    public OkHttpClient providesHttpInterceptor() {
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        Dispatcher requestDispatcher = new Dispatcher();
+        requestDispatcher.setMaxRequests(1); // we ned to rate limit the amount of requests in parallel to one. This way we don't flood the network (and our app)
+        return new OkHttpClient.Builder().addInterceptor(loggingInterceptor).dispatcher(requestDispatcher).build();
+    }
 
     /*
      * Retrofit will be doing the API duties here. We feed it the baseURL we need it to fetch, give it an okHttp3 client in the form of our interceptor
      * the Gson Factory will be used to convert the JSON data into our java POJO's
      */
-    @Provides @Singleton
-        public Retrofit providesRetrofit() {
-          return new Retrofit.Builder()
-                     .baseUrl("http://api.openweathermap.org/data/2.5/forecast/")
-                     .client(providesHttpInterceptor())
-                     .addConverterFactory(GsonConverterFactory.create())
-                     .build();
-      }
+    @Provides
+    @Singleton
+    public Retrofit providesRetrofit() {
+        return new Retrofit.Builder()
+                .baseUrl(getBaseUrl())
+                .client(providesHttpInterceptor())
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build();
+    }
 
     /*
      *  We build up the retrofit client using our weatherApi class that containts all the methods we need retrofit to manage.
      */
-    @Provides @Singleton
-    public WeatherApiDep providesWeatherApi(Retrofit retrofit) {
-          return retrofit.create(WeatherApiDep.class);
+    @Provides
+    @Singleton
+    public WeatherApi providesWeatherApi(Retrofit retrofit) {
+        return retrofit.create(WeatherApi.class);
     }
 
 }
