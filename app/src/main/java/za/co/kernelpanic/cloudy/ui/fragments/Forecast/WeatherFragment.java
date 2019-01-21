@@ -1,15 +1,10 @@
 package za.co.kernelpanic.cloudy.ui.fragments.Forecast;
 
 
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
-import androidx.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import com.google.android.material.snackbar.Snackbar;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,16 +15,24 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import javax.inject.Inject;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
-import dagger.android.DaggerFragment;
+import com.google.android.material.snackbar.Snackbar;
+
+import javax.inject.Inject;
+;
+import dagger.android.AndroidInjection;
+import dagger.android.support.AndroidSupportInjection;
 import za.co.kernelpanic.cloudy.R;
 import za.co.kernelpanic.cloudy.data.ForecastResponse;
 import za.co.kernelpanic.cloudy.databinding.FragmentWeatherForecastBinding;
-import za.co.kernelpanic.cloudy.utils.WeatherUtils;
 import za.co.kernelpanic.cloudy.di.modules.WeatherViewModelFactory;
+import za.co.kernelpanic.cloudy.utils.WeatherUtils;
 
-public class WeatherFragment extends DaggerFragment {
+public class WeatherFragment extends Fragment {
 
     private static final String LOG_TAG = WeatherFragment.class.getSimpleName();
     //data binding
@@ -43,10 +46,26 @@ public class WeatherFragment extends DaggerFragment {
     /*
      * We then inject our two special lads here in order to make this work,
      */
-    @Inject WeatherViewModelFactory viewModelFactory;
-    @Inject WeatherForecastViewModel viewModel;
+    @Inject
+    WeatherViewModelFactory viewModelFactory;
+    @Inject
+    WeatherForecastViewModel viewModel;
+
+    @Override
+    public void onAttach(Context context) {
+        AndroidSupportInjection.inject(this);
+        super.onAttach(context);
+    }
+
     public WeatherFragment() {
         // Required empty public constructor
+    }
+
+    public static WeatherFragment newInstance() {
+        Bundle args = new Bundle();
+        WeatherFragment fragment = new WeatherFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -58,6 +77,7 @@ public class WeatherFragment extends DaggerFragment {
          */
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(WeatherForecastViewModel.class);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment using databinding
@@ -67,6 +87,7 @@ public class WeatherFragment extends DaggerFragment {
         checkConnectivity();
         return binding.getRoot();
     }
+
     /*
      * Let's make sure the user has a working internet connection before we attempt to get the weather data.
      * We save battery life by not invoking any location requests here. We also notify the user that they should check
@@ -74,14 +95,14 @@ public class WeatherFragment extends DaggerFragment {
      */
     private void checkConnectivity() {
         ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(cm != null) {
+        if (cm != null) {
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
             isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
         } else {
             Log.e(LOG_TAG, "Unable to get network info");
         }
         Log.w(LOG_TAG, "Device Network state: Connection -> " + isConnected);
-        if(isConnected) {
+        if (isConnected) {
             showLoading();
         } else {
             showSnackBar("Unable to connect to service. Please check your connection and try again");
@@ -107,12 +128,12 @@ public class WeatherFragment extends DaggerFragment {
      */
     private void getData() {
         viewModel.getWeather().observe(this, weatherInfo -> {
-            if(weatherInfo != null && weatherInfo.getForecastList().size() > 0) {
+            if (weatherInfo != null && weatherInfo.getForecastList().size() > 0) {
                 Log.i(LOG_TAG, "got info!");
                 hideLoading();
                 updateUI(weatherInfo);
             } else {
-               showSnackBar("Unable to get Weather Information. Try again later");
+                showSnackBar("Unable to get Weather Information. Try again later");
                 Log.w(LOG_TAG, "Unable to get weather!");
             }
         });
@@ -141,7 +162,7 @@ public class WeatherFragment extends DaggerFragment {
         double highTemp = weatherInfo.getForecastList().get(0).getTemperature().getMaxTemp();
         double lowTemp = weatherInfo.getForecastList().get(0).getTemperature().getMinTemp();
         String currentTemp = WeatherUtils.formatTemperature(getActivity(), temperature);
-        String maxTemp  = WeatherUtils.formatTemperature(getActivity(), highTemp);
+        String maxTemp = WeatherUtils.formatTemperature(getActivity(), highTemp);
         String minTemp = WeatherUtils.formatTemperature(getActivity(), lowTemp);
         /*
          * Pressure and humidity
@@ -180,7 +201,7 @@ public class WeatherFragment extends DaggerFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.action_refresh:
                 showSnackBar("Refreshing...");
                 checkConnectivity();
@@ -193,8 +214,8 @@ public class WeatherFragment extends DaggerFragment {
     /*
      * Default message method for showing information to the user.
      */
-    private void showSnackBar(String message){
-        if(getView() != null){
+    private void showSnackBar(String message) {
+        if (getView() != null) {
             Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
         } else {
             Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
