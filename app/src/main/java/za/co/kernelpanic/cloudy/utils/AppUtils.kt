@@ -10,8 +10,14 @@ class AppUtils {
 
     companion object {
 
-        fun checkConnectivity(context: Context): Boolean {
-            val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        /*
+        * Let's make sure the user has a working internet connection before we attempt to get the weather data.
+        * We save battery life by not invoking any location requests here. We also notify the user that they should check
+        * their settings.
+         */
+
+        fun checkConnectivity(context: Context?): Boolean {
+            val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetworkInfo: NetworkInfo = cm.activeNetworkInfo
             return activeNetworkInfo.isConnected
         }
