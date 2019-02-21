@@ -28,7 +28,6 @@ import za.co.kernelpanic.cloudy.ui.fragments.Forecast.WeatherFragment
 import za.co.kernelpanic.cloudy.utils.AppUtils
 import javax.inject.Inject
 
-
 class WeatherActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     @Inject
@@ -66,7 +65,7 @@ class WeatherActivity : AppCompatActivity(), HasSupportFragmentInjector {
     }
 
     private fun loadFragment() {
-        val weatherFragment: WeatherFragment = WeatherFragment.newInstance()
+        val weatherFragment = WeatherFragment.newInstance()
         val manager = supportFragmentManager
         val transaction = manager.beginTransaction().add(binding.mainLayout.id, weatherFragment, "weather")
         transaction.commit()
@@ -169,7 +168,6 @@ class WeatherActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
                                 Log.w(LOG_TAG, getString(R.string.log_pending_intent_request))
                             }
-
                         }
                         LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
                             val errorMessage = getString(R.string.log_pending_intent_failure)
@@ -178,7 +176,6 @@ class WeatherActivity : AppCompatActivity(), HasSupportFragmentInjector {
                         }
                     }
                 }
-
     }
 
     /*
@@ -194,7 +191,6 @@ class WeatherActivity : AppCompatActivity(), HasSupportFragmentInjector {
                 Activity.RESULT_CANCELED -> Log.w(LOG_TAG, "The user cancelled request, they'll have to fix it manually")
             }
         }
-
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> {
