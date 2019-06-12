@@ -1,17 +1,15 @@
-package za.co.kernelpanic.cloudy.ui.fragments.Forecast
+package za.co.kernelpanic.cloudy.ui.fragments.forecast
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
-import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 import za.co.kernelpanic.cloudy.R
 import za.co.kernelpanic.cloudy.data.ForecastResponse
 import za.co.kernelpanic.cloudy.databinding.FragmentWeatherForecastBinding
@@ -21,7 +19,7 @@ import za.co.kernelpanic.cloudy.utils.WeatherUtils
 import javax.inject.Inject
 
 
-class WeatherFragment : Fragment() {
+class WeatherFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentWeatherForecastBinding
     //we need to check for network connectivity before trying to get data
@@ -38,11 +36,6 @@ class WeatherFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: WeatherForecastViewModel
-
-    override fun onAttach(context: Context?) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -129,7 +122,7 @@ class WeatherFragment : Fragment() {
          */
         val windSpeed = weatherInfo.forecastList[0].windSpeed
         val windDirection = weatherInfo.forecastList[0].windDirection
-        val windSpeedString = WeatherUtils.getFormattedWind(activity, windSpeed, windDirection)
+        val windSpeedString = WeatherUtils.getFormattedWind(activity!!, windSpeed, windDirection)
         //we now have to bind all our awesome variables to each of their views so we can see the weather
         binding.tvLocationHeader.text = weatherLocation
         binding.tvWeatherDescription.text = weatherDescription
@@ -142,16 +135,19 @@ class WeatherFragment : Fragment() {
         binding.imgCurrentWeather.setImageResource(weatherImageId)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.main, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.main, menu)
     }
+
+
     /*
      * Whenever the refresh icon is tapped, this method is triggered.
      * As always, we check for network connectivity.
      */
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.action_refresh -> {
                 showSnackBar("Refreshing...")
                 AppUtils.checkConnectivity(context)

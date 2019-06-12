@@ -1,4 +1,4 @@
-package za.co.kernelpanic.cloudy.ui.fragments.Forecast
+package za.co.kernelpanic.cloudy.ui.fragments.forecast
 
 import android.location.Location
 import androidx.lifecycle.LiveData

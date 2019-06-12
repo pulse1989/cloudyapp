@@ -8,7 +8,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -18,27 +17,22 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.material.snackbar.Snackbar
-import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.DaggerAppCompatActivity
 import dagger.android.support.HasSupportFragmentInjector
 import za.co.kernelpanic.cloudy.R
 import za.co.kernelpanic.cloudy.databinding.ActivityMainBinding
-import za.co.kernelpanic.cloudy.ui.fragments.Forecast.WeatherFragment
+import za.co.kernelpanic.cloudy.ui.fragments.forecast.WeatherFragment
 import za.co.kernelpanic.cloudy.utils.AppUtils
 import javax.inject.Inject
 
-class WeatherActivity : AppCompatActivity(), HasSupportFragmentInjector {
+class WeatherActivity : DaggerAppCompatActivity(), HasSupportFragmentInjector {
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Fragment>
     @Inject
     lateinit var locationRequest: LocationRequest
-
-    private val LOG_TAG = WeatherActivity::class.java.simpleName
-    private val CHECK_PLAY_SERVICES = 9000
-    private val FINE_LOCATION_REQUEST_CODE = 8
-    private val CHECK_DEVICE_SETTINGS = 8000
 
     private lateinit var settingsClient: SettingsClient
     private lateinit var locationSettingsRequest: LocationSettingsRequest
@@ -48,9 +42,8 @@ class WeatherActivity : AppCompatActivity(), HasSupportFragmentInjector {
         /*
          * we need this here before calling onCreate otherwise our fragment attachments can end up failing
          * as there is a possibility the fragment can get attached while the activity calles super().
-         * Before that happens, our activity has to be injected! otherwise any fragments that rely on this activity can crash
-         */
-        AndroidInjection.inject(this)
+         * Before that happens, our activity has to be injected! otherwise any fragments that rely on this activity can crash */
+
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         settingsClient = LocationServices.getSettingsClient(this)
@@ -195,5 +188,12 @@ class WeatherActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> {
         return androidInjector
+    }
+
+    companion object {
+        private val LOG_TAG = WeatherActivity::class.java.simpleName
+        private const val CHECK_PLAY_SERVICES = 9000
+        private const val FINE_LOCATION_REQUEST_CODE = 8
+        private const val CHECK_DEVICE_SETTINGS = 8000
     }
 }

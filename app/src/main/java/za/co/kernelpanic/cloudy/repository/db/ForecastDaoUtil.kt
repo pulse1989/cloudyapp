@@ -1,4 +1,4 @@
-package za.co.kernelpanic.cloudy.repository.db;
+package za.co.kernelpanic.cloudy.repository.db
 
 
 /*
@@ -7,6 +7,4 @@ package za.co.kernelpanic.cloudy.repository.db;
  * saving information in the database. Let's hope this works
  */
 
-public class ForecastDaoUtil {
-
-}
+class ForecastDaoUtil

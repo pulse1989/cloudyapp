@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
-import za.co.kernelpanic.cloudy.ui.fragments.Forecast.WeatherForecastViewModel;
+import za.co.kernelpanic.cloudy.ui.fragments.forecast.WeatherForecastViewModel;
 
 @Module
 public abstract class ViewModelModule {
