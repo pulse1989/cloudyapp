@@ -1,15 +1,15 @@
-package za.co.kernelpanic.cloudy.di.modules;
+package za.co.kernelpanic.cloudy.di.modules
 
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
-import dagger.Binds;
-import dagger.Module;
-import dagger.multibindings.IntoMap;
-import za.co.kernelpanic.cloudy.ui.fragments.forecast.WeatherForecastViewModel;
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.IntoMap
+import za.co.kernelpanic.cloudy.ui.fragments.forecast.WeatherForecastViewModel
 
 @Module
-public abstract class ViewModelModule {
+abstract class ViewModelModule {
 
     /*
      * This ViewModel will be used by the factory in order to be created for the class that needs it (our WeatherActivityFragment)
@@ -18,8 +18,10 @@ public abstract class ViewModelModule {
      * @ViewModelKey - Our own annotation that tells dagger which class to use as the key for our map. this class HAS to extend ViewModel or instantiation will fail
      * Within your UI class just call @Inject on the viewmodel to begin using it.
      */
-    @Binds @IntoMap @ViewModelKey(WeatherForecastViewModel.class)
-    abstract ViewModel providesWeatherForecastViewModel(WeatherForecastViewModel weatherForecastViewModel);
+    @Binds
+    @IntoMap
+    @ViewModelKey(WeatherForecastViewModel::class)
+    internal abstract fun providesWeatherForecastViewModel(weatherForecastViewModel: WeatherForecastViewModel): ViewModel
 
     /*
      * Our ViewModel factory. Any viewmodels passed into the factory from this class will be provided to the class that needs it by dagger.
@@ -27,5 +29,5 @@ public abstract class ViewModelModule {
      */
 
     @Binds
-    abstract ViewModelProvider.Factory bindViewModelFactory(WeatherViewModelFactory viewModelFactory);
+    internal abstract fun bindViewModelFactory(viewModelFactory: WeatherViewModelFactory): ViewModelProvider.Factory
 }
