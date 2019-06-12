@@ -14,7 +14,7 @@ import za.co.kernelpanic.cloudy.R
  */
 
 /*
- * Thanks google! Utility class was found on github -  Vusi
+ * Thanks google! Utility class was found on github
  */
 object WeatherUtils {
 
